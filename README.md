@@ -1,6 +1,6 @@
 # English Learning Experience — CEFF Education
 
-> Projeto de website para substituir o PDF de apresentação (CEFF_2026.pdf) usado pelo professor de inglês **Kadu** ([@kadufloress](https://www.instagram.com/kadufloress/)) nas negociações com novos alunos. O site apresenta o serviço de aulas particulares de inglês — do nível A1 ao C2, online e presencial — e canaliza o interessado para o agendamento da aula experimental gratuita via WhatsApp.
+> Projeto de website para substituir o PDF de apresentação (CEFF_2026.pdf) usado pelo professor de inglês **Kadu** nas negociações com novos alunos. O site apresenta o serviço de aulas particulares de inglês — do nível A1 ao C2, online e presencial — e canaliza o interessado para o agendamento da aula experimental gratuita via WhatsApp.
 
 ## Status do projeto
 
