@@ -539,7 +539,7 @@ a { color: inherit; }
   .hero-stamp { display: none; }
   .metodo-cols { grid-template-columns: 1fr; gap: 24px; }
   .hero-foot { grid-template-columns: 1fr; }
-  .hero-foot div + div { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; }
+  .hero-foot div + div { border-left: none; border-top: 1px solid var(--rule); padding-left: 20px; }
   .hero-foot div { letter-spacing: 0.08em; padding: 16px 20px; }
   .hero-foot b { font-size: 26px; }
   .plan-row { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
