@@ -9,6 +9,7 @@ import { SiteProvider, useSiteContent } from './controllers/SiteProvider.jsx';
 import { useCameraJourney } from './controllers/useCameraJourney.js';
 import { Sections } from './views/Sections.jsx';
 import { Hud } from './views/chrome/Hud.jsx';
+import { Cursor } from './views/chrome/Cursor.jsx';
 
 function Journey() {
   const { content } = useSiteContent();
@@ -28,6 +29,8 @@ function Journey() {
         index={activeIndex}
         total={content.panels.length}
       />
+
+      <Cursor />
 
       {/* the camera: fixed; the site passes through it */}
       <div className="stage">

@@ -32,6 +32,34 @@ body {
 
 a { color: inherit; }
 
+/* ---------- custom cursor (pixel-art arrow + brutalist frame) ---------- */
+
+.has-cursor,
+.has-cursor * { cursor: none !important; }
+
+.cursor-frame {
+  position: fixed;
+  top: -19px; left: -19px; /* center the 38px frame on the pointer */
+  width: 38px;
+  height: 38px;
+  border: 3px solid var(--ink);
+  pointer-events: none;
+  z-index: 60;
+}
+
+.cursor-arrow {
+  position: fixed;
+  top: -4px; left: -4px;
+  pointer-events: none;
+  z-index: 61;
+  line-height: 0;
+}
+.cursor-arrow-ink {
+  position: absolute;
+  top: -2px; left: -2px; /* paper offset gives the pixel arrow its outline */
+  line-height: 0;
+}
+
 /* ---------- the camera: fixed stage, the site passes through it ---------- */
 
 .stage {
@@ -177,8 +205,15 @@ a { color: inherit; }
 [data-depth] { will-change: transform; }
 [data-x] { will-change: transform; }
 
-/* framer masked lines: the line rises from inside its own frame */
-.line-mask { overflow: hidden; display: block; padding-bottom: 6px; }
+/* framer masked lines: the line rises from inside its own frame.
+   padding-top leaves room for accented caps (Ê, É) — the negative margin
+   keeps the visual rhythm unchanged. */
+.line-mask {
+  overflow: hidden;
+  display: block;
+  padding: 0.16em 0 0.08em;
+  margin-top: -0.16em;
+}
 .section-cta .line-mask + .line-mask { margin-top: 10px; }
 
 /* decorative outline numerals */
