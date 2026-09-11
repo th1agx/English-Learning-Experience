@@ -10,11 +10,11 @@ export function LevelsPanel({ id, kicker, title, levels }) {
           <span className="n">— {id}</span>
         </div>
 
-        <h2 className="mega" data-reveal="wipe" data-depth="70">
-          {title}
-        </h2>
+        <div className="mask">
+          <h2 className="mega" data-depth="60">{title}</h2>
+        </div>
 
-        <span className="side-no">03</span>
+        <span className="side-no" data-depth="100">03</span>
       </div>
 
       <div className="lvl-strip" data-x>

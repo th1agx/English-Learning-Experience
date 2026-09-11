@@ -20,12 +20,12 @@ export function HeroPanel({ id, kicker, titleLines, lede, facts, stamp }) {
       <div className="frame">
         <span className="hero-stamp" data-reveal="pop" data-reveal-rot="6">{stamp}</span>
 
-        <div className="mono-label" data-reveal="slide" data-depth="26">
+        <div className="mono-label" data-reveal="slide">
           <span>{kicker}</span>
           <span className="n">— {id}</span>
         </div>
 
-        <h1 className="mega" data-reveal="wipe">
+        <h1 className="mega" data-reveal="rise">
           {titleLines.map((line, i) => (
             <span key={i}>
               <motion.span
@@ -43,11 +43,11 @@ export function HeroPanel({ id, kicker, titleLines, lede, facts, stamp }) {
           ))}
         </h1>
 
-        <p className="lede" data-reveal="slide" data-depth="48" style={{ marginTop: 56 }}>
+        <p className="lede" data-reveal="slide" style={{ marginTop: 56 }}>
           {lede}
         </p>
 
-        <div className="hero-foot" data-reveal="slide" data-depth="24">
+        <div className="hero-foot" data-reveal="slide">
           {facts.map((f) => (
             <div key={f.label}>
               <b>{f.value}</b>

@@ -13,25 +13,27 @@ export function CtaPanel({ kicker, titleTop, titleHighlight, titleBottom, lede, 
 
         <div className="cta-cols">
           <div>
-            <h2 className="mega" data-reveal="wipe">
-              {titleTop}
-              <br />
-              <em>{titleHighlight}</em> {titleBottom}
-            </h2>
+            <div className="mask">
+              <h2 className="mega" data-depth="40">
+                {titleTop}
+                <br />
+                <em>{titleHighlight}</em> {titleBottom}
+              </h2>
+            </div>
             <p className="lede" data-reveal="slide">{lede}</p>
-            <a className="cta-button" data-reveal="pop" data-reveal-rot="-3" href={whatsappUrl} target="_blank" rel="noreferrer">
+            <a className="cta-button" data-reveal="pop" href={whatsappUrl} target="_blank" rel="noreferrer">
               {whatsappLabel}
             </a>
           </div>
 
-          <ul className="cta-meta-list" data-reveal="slide">
+          <ul className="cta-meta-list">
             {metaItems.map((m) => (
               <li key={m}><b>{m}</b>ceff education — english class</li>
             ))}
           </ul>
         </div>
 
-        <span className="side-no">05</span>
+        <span className="side-no" data-depth="100">05</span>
       </div>
     </section>
   );

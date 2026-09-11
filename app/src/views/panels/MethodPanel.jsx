@@ -11,14 +11,16 @@ export function MethodPanel({ id, kicker, title, steps }) {
 
         <div className="metodo-cols">
           <div>
-            <h2 className="mega" data-reveal="wipe" data-depth="80" style={{ fontSize: 'clamp(44px, 5.5vw, 84px)' }}>
-              {title}
-            </h2>
+            <div className="mask">
+              <h2 className="mega" data-depth="50" style={{ fontSize: 'clamp(44px, 5.5vw, 84px)' }}>
+                {title}
+              </h2>
+            </div>
             <p className="lede" data-reveal="slide" style={{ marginTop: 40 }}>
               O conteúdo das aulas nasce do teste de nivelamento — cada etapa acontece no seu ritmo.
             </p>
           </div>
-          <div data-reveal="slide" data-depth="36">
+          <div data-stagger="left">
             {steps.map((s) => (
               <div className="metodo-item" key={s.n}>
                 <span className="n">{s.n}</span>
@@ -31,7 +33,7 @@ export function MethodPanel({ id, kicker, title, steps }) {
           </div>
         </div>
 
-        <span className="side-no">02</span>
+        <span className="side-no" data-depth="90">02</span>
       </div>
     </section>
   );

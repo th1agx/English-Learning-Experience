@@ -1,22 +1,18 @@
 /**
- * Controller layer — scroll choreographer (vertical pins + dynamic reveals).
- * Owns every GSAP side effect so views stay pure.
- *
- * Motion language (no plain fade-ins):
- *  - wipe  : headings unmask sideways via clip-path (power4.inOut)
- *  - slide : blocks enter skewed from the side, straightening out
- *  - pop   : stamps/labels scale+rotate into place
- *  - pin   : each section holds the camera while its layers parallax at
- *            their own speeds; tagged strips cross horizontally mid-pin
- *
- * Performance: only transform/clip-path animate (GPU-friendly),
- * anticipatePin avoids pin jumps, triggers refresh once fonts settle.
+ * Controller layer — scroll choreographer, one language per section.
+ * Built on the official GSAP skills (gsap-react / scrolltrigger / performance):
+ *  - useGSAP() scoped, Lenis synced to the GSAP ticker
+ *  - transform-only tweens; masked line reveals (no plain fades)
+ *  - continuous scrub parallax on EVERY section (nothing feels dead)
+ *  - single pin (levels) animating a child with ease:"none"
+ *  - triggers created top-to-bottom; refresh after webfonts
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger } from '../lib/animationEngine.js';
+import { useEffect, useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import { gsap, ScrollTrigger, createSmoothScroll } from '../lib/animationEngine.js';
 
-const PIN_TRAVEL = '+=100%';
+gsap.registerPlugin(useGSAP);
 
 export function useScrollJourney({ sectionCount }) {
   const rootRef = useRef(null);
@@ -24,86 +20,150 @@ export function useScrollJourney({ sectionCount }) {
   const counterRef = useRef(null);
   const [ready, setReady] = useState(false);
 
-  const updateCounter = useCallback(
-    (index) => {
-      if (!counterRef.current) return;
-      counterRef.current.textContent = `${String(index).padStart(2, '0')} / ${String(sectionCount).padStart(2, '0')}`;
-    },
-    [sectionCount],
-  );
-
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const smooth = createSmoothScroll();
+    return () => smooth.destroy();
+  }, []);
+
+  const updateCounter = (index) => {
+    if (!counterRef.current) return;
+    counterRef.current.textContent = `${String(index).padStart(2, '0')} / ${String(sectionCount).padStart(2, '0')}`;
+  };
+
+  useGSAP(
+    () => {
       const sections = gsap.utils.toArray('.section');
 
-      const reveal = (el, trigger) => {
-        const kind = el.dataset.reveal || 'slide';
-        const start = { trigger: trigger || el, start: 'top 78%' };
+      sections.forEach((section, i) => {
+        // ---- chrome: section counter ----
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onEnter: () => updateCounter(i + 1),
+          onEnterBack: () => updateCounter(i + 1),
+        });
 
-        if (kind === 'wipe') {
+        // ---- continuous life: scrub parallax on every section ----
+        // elements tagged data-depth drift while the section crosses the
+        // viewport — the page never sits still
+        section.querySelectorAll('[data-depth]').forEach((el) => {
+          const d = parseFloat(el.dataset.depth);
           gsap.fromTo(
             el,
-            { clipPath: 'inset(0 100% 0 0)' },
-            { clipPath: 'inset(0 0% 0 0)', duration: 1.1, ease: 'power4.inOut', scrollTrigger: start },
+            { y: d },
+            {
+              y: -d,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.8,
+              },
+            },
           );
-        } else if (kind === 'pop') {
+        });
+
+        // ---- masked heading reveal: line rises from inside its frame ----
+        section.querySelectorAll('.mask > *').forEach((line) => {
+          gsap.from(line, {
+            yPercent: 115,
+            duration: 1.15,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: section, start: 'top 70%', once: true },
+          });
+        });
+
+        // ---- discrete pops (stamps, buttons): back.out overshoot ----
+        section.querySelectorAll('[data-reveal="pop"]').forEach((el) => {
           gsap.from(el, {
             scale: 0.4,
-            rotation: el.dataset.revealRot ? parseFloat(el.dataset.revealRot) : -8,
+            rotation: -6,
             duration: 0.8,
-            ease: 'back.out(2)',
-            scrollTrigger: start,
+            ease: 'back.out(2.2)',
+            scrollTrigger: { trigger: section, start: 'top 70%', once: true },
           });
-        } else {
-          // slide: enters skewed from the left, straightens as it lands
-          gsap.from(el, {
-            x: -90,
-            skewY: 4,
-            opacity: 0.001,
-            duration: 0.9,
+        });
+
+        // ---- grouped items enter staggered, skewed, straightening out ----
+        section.querySelectorAll('[data-stagger]').forEach((group) => {
+          const fromX = group.dataset.stagger === 'left' ? -90 : 90;
+          gsap.from(group.children, {
+            x: fromX,
+            skewX: 5,
+            opacity: 0,
+            duration: 0.85,
+            stagger: 0.08,
             ease: 'power3.out',
-            scrollTrigger: start,
+            scrollTrigger: { trigger: section, start: 'top 68%', once: true },
           });
-        }
-      };
-
-      sections.forEach((section, i) => {
-        const isFinale = section.classList.contains('section-cta');
-
-        section.querySelectorAll('[data-reveal], .reveal').forEach((el) => reveal(el, section));
-
-        if (isFinale) return;
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: PIN_TRAVEL,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            scrub: 0.4,
-            invalidateOnRefresh: true,
-            onToggle: (self) => self.isActive && updateCounter(i + 1),
-          },
         });
-
-        section.querySelectorAll('[data-depth]').forEach((el) => {
-          const depth = parseFloat(el.dataset.depth);
-          tl.fromTo(el, { y: depth }, { y: -depth, duration: 1, ease: 'none' }, 0);
-        });
-
-        const xEl = section.querySelector('[data-x]');
-        if (xEl) {
-          tl.fromTo(
-            xEl,
-            { x: 0 },
-            { x: () => -(xEl.scrollWidth - window.innerWidth + 96), duration: 1, ease: 'none' },
-            0,
-          );
-        }
       });
 
+      // ---- per-section signature moves ----
+
+      // method: steps fall in with a slight arc, title parallax already
+      // tagged; plan rows sweep in from the right with rotation settle
+      const planRows = rootRef.current.querySelectorAll('.plan-row');
+      if (planRows.length) {
+        gsap.from(planRows, {
+          x: 140,
+          rotation: 1.6,
+          opacity: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.section-planos', start: 'top 62%', once: true },
+        });
+      }
+
+      // levels: pinned hold — strip crosses horizontally (ease:none = 1:1),
+      // and each level pops as the pin engages
+      const levels = rootRef.current.querySelector('.section-niveis');
+      const strip = levels?.querySelector('[data-x]');
+      if (levels && strip) {
+        gsap.from(levels.querySelectorAll('.lvl'), {
+          scale: 0.55,
+          y: 60,
+          rotation: -5,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.07,
+          ease: 'back.out(1.9)',
+          scrollTrigger: { trigger: levels, start: 'top 55%', once: true },
+        });
+
+        gsap.to(strip, {
+          x: () => -(strip.scrollWidth - window.innerWidth + 96),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: levels,
+            start: 'top top',
+            end: '+=120%',
+            pin: true,
+            anticipatePin: 1,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
+
+      // cta: meta column slides up staggered while the mega unmask plays
+      const cta = rootRef.current.querySelector('.section-cta');
+      if (cta) {
+        gsap.from(cta.querySelectorAll('.cta-meta-list li'), {
+          y: 48,
+          x: 40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.09,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: cta, start: 'top 65%', once: true },
+        });
+      }
+
+      // ---- global journey progress ----
       ScrollTrigger.create({
         trigger: document.documentElement,
         start: 0,
@@ -115,13 +175,11 @@ export function useScrollJourney({ sectionCount }) {
         },
       });
 
-      // triggers settle only after webfonts size the headings correctly
       document.fonts?.ready.then(() => ScrollTrigger.refresh());
       setReady(true);
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [updateCounter]);
+    },
+    { scope: rootRef },
+  );
 
   return { rootRef, railFillRef, counterRef, ready };
 }
