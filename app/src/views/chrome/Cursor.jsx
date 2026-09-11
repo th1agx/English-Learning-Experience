@@ -1,8 +1,6 @@
 /**
- * View layer — Cursor: pixel-art arrow + lagging brutalist frame.
- * The arrow tracks the pointer exactly; the butter frame trails with a
- * spring and spins into a diamond over anything clickable.
- * Only mounted for fine pointers (mouse); touch keeps native behavior.
+ * View layer — Cursor: pixel-art arrow pinned to the pointer.
+ * Bounces over anything clickable. Only mounted for fine pointers.
  */
 
 import { useEffect, useState } from 'react';
@@ -50,8 +48,6 @@ export function Cursor() {
   const y = useMotionValue(-100);
   const arrowX = useSpring(x, { stiffness: 900, damping: 50, mass: 0.2 });
   const arrowY = useSpring(y, { stiffness: 900, damping: 50, mass: 0.2 });
-  const frameX = useSpring(x, { stiffness: 160, damping: 18, mass: 0.5 });
-  const frameY = useSpring(y, { stiffness: 160, damping: 18, mass: 0.5 });
 
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
@@ -83,33 +79,17 @@ export function Cursor() {
   if (!enabled) return null;
 
   return (
-    <>
-      {/* trailing brutalist frame — spins to a diamond over clickables */}
-      <motion.div
-        className="cursor-frame"
-        style={{ x: frameX, y: frameY }}
-        animate={{
-          scale: hovering ? 1.5 : 1,
-          rotate: hovering ? 45 : 0,
-          backgroundColor: hovering ? 'var(--butter)' : 'rgba(245, 197, 24, 0)',
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-        aria-hidden="true"
-      />
-      {/* pixel arrow exactly at the pointer */}
-      <motion.div
-        className="cursor-arrow"
-        style={{ x: arrowX, y: arrowY, opacity: visible ? 1 : 0 }}
-        animate={{ scale: hovering ? 1.35 : 1 }}
-        transition={{ type: 'spring', stiffness: 380, damping: 16 }}
-        aria-hidden="true"
-      >
-        <PixelArrow fill="var(--paper)" size={3} />
-        <span className="cursor-arrow-ink">
-          <PixelArrow fill="var(--ink)" size={3} />
-        </span>
-      </motion.div>
-    </>
+    <motion.div
+      className="cursor-arrow"
+      style={{ x: arrowX, y: arrowY, opacity: visible ? 1 : 0 }}
+      animate={{ scale: hovering ? 1.4 : 1, rotate: hovering ? -12 : 0 }}
+      transition={{ type: 'spring', stiffness: 380, damping: 16 }}
+      aria-hidden="true"
+    >
+      <PixelArrow fill="var(--paper)" size={3} />
+      <span className="cursor-arrow-ink">
+        <PixelArrow fill="var(--ink)" size={3} />
+      </span>
+    </motion.div>
   );
 }
