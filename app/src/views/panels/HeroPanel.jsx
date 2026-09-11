@@ -34,7 +34,7 @@ export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp, band
           ))}
         </h1>
 
-        <motion.p className="lede" variants={rise} data-depth="48" style={{ marginTop: 56 }}>
+        <motion.p className="lede" variants={rise} data-depth="48" style={{ marginTop: 40 }}>
           {lede}
         </motion.p>
 

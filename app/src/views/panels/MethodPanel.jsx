@@ -27,27 +27,9 @@ export function MethodPanel({ active, id, kicker, title, steps, statement, chips
             <motion.p className="lede" variants={rise} style={{ marginTop: 40 }}>
               O conteúdo das aulas nasce do teste de nivelamento — cada etapa acontece no seu ritmo.
             </motion.p>
-            <motion.div className="statement" variants={rise} style={{ marginTop: 48 }}>
+            <motion.div className="statement" variants={rise} style={{ marginTop: 40 }}>
               <b>{statement.big}</b>
               <span>{statement.small}</span>
-            </motion.div>
-            <motion.div className="chips" variants={panel}>
-              {chips.map((chip, i) => (
-                <motion.span
-                  className="chip"
-                  key={chip}
-                  variants={{
-                    hidden: { scale: 0.4, y: 24, opacity: 0 },
-                    show: {
-                      scale: 1, y: 0, opacity: 1,
-                      transition: { type: 'spring', stiffness: 260, damping: 16 },
-                    },
-                  }}
-                  style={{ rotate: i % 2 === 0 ? '1deg' : '-1deg' }}
-                >
-                  {chip}
-                </motion.span>
-              ))}
             </motion.div>
           </div>
           <div>
@@ -62,6 +44,26 @@ export function MethodPanel({ active, id, kicker, title, steps, statement, chips
             ))}
           </div>
         </div>
+
+        {/* credentials run full-width below the columns */}
+        <motion.div className="chips" variants={panel}>
+          {chips.map((chip, i) => (
+            <motion.span
+              className="chip"
+              key={chip}
+              variants={{
+                hidden: { scale: 0.4, y: 24, opacity: 0 },
+                show: {
+                  scale: 1, y: 0, opacity: 1,
+                  transition: { type: 'spring', stiffness: 260, damping: 16 },
+                },
+              }}
+              style={{ rotate: i % 2 === 0 ? '1deg' : '-1deg' }}
+            >
+              {chip}
+            </motion.span>
+          ))}
+        </motion.div>
 
         <span className="side-no" data-depth="90">02</span>
       </div>

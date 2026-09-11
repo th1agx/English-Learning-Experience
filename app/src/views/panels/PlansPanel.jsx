@@ -19,7 +19,11 @@ export function PlansPanel({ active, id, kicker, title, rows, note }) {
 
         <div data-depth="50">
           <div className="line-mask">
-            <motion.h2 className="mega" variants={lineUp} style={{ maxWidth: '12ch' }}>
+            <motion.h2
+              className="mega"
+              variants={lineUp}
+              style={{ maxWidth: '12ch', fontSize: 'clamp(40px, 5vw, 72px)' }}
+            >
               {title}
             </motion.h2>
           </div>
