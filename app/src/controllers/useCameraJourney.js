@@ -21,6 +21,11 @@ gsap.registerPlugin(useGSAP);
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
+/* on narrow screens the levels strip wraps into a grid (CSS) instead of
+   crossing the camera — the controller must not fight that layout */
+const NARROW = '(max-width: 900px)';
+const isNarrow = () => window.matchMedia(NARROW).matches;
+
 export function useCameraJourney({ panelCount }) {
   const scrollSpaceRef = useRef(null);
   const trackRef = useRef(null);
@@ -66,7 +71,14 @@ export function useCameraJourney({ panelCount }) {
         invalidateOnRefresh: true,
         onRefresh: () => {
           measure();
-          if (strip) stripDist = Math.max(0, strip.scrollWidth - window.innerWidth + 96);
+          if (strip) {
+            if (isNarrow()) {
+              strip.style.transform = '';
+              stripDist = 0;
+            } else {
+              stripDist = Math.max(0, strip.scrollWidth - window.innerWidth + 96);
+            }
+          }
         },
         onUpdate: (self) => {
           const p = self.progress;
@@ -90,14 +102,16 @@ export function useCameraJourney({ panelCount }) {
           setActiveIndex((prev) => (prev === best ? prev : best));
 
           // 3 — per-panel parallax from local progress
+          // damped on narrow screens: full drift slices text at the viewport edge
+          const damp = isNarrow() ? 0.45 : 1;
           panels.forEach((panel, i) => {
             const local = (offsets[i] - cameraCenter) / window.innerHeight; // 0 = centered
             depthEls[i].forEach(({ el, depth }) => {
-              el.style.transform = `translate3d(0, ${(local * depth).toFixed(1)}px, 0)`;
+              el.style.transform = `translate3d(0, ${(local * depth * damp).toFixed(1)}px, 0)`;
             });
 
             // 4 — horizontal crossing for the panel that owns the strip
-            if (strip && panel.contains(strip)) {
+            if (strip && panel.contains(strip) && !isNarrow()) {
               const t = clamp01((local + 0.9) / 1.8); // 0 before entering, 1 after leaving
               strip.style.transform = `translate3d(${(-t * stripDist).toFixed(1)}px, 0, 0)`;
             }

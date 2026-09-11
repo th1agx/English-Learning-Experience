@@ -544,13 +544,59 @@ a { color: inherit; }
 
 @media (max-width: 900px) {
   .section { padding: 110px 28px 48px; }
-  .hud { left: 28px; right: 28px; }
+  .hud { left: 28px; right: 28px; gap: 12px; }
+  .hud .brand,
+  .hud .counter { white-space: nowrap; }
   .hero-stamp { display: none; }
   .metodo-cols { grid-template-columns: 1fr; gap: 24px; }
   .hero-foot { grid-template-columns: 1fr; }
   .hero-foot div + div { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; }
+  .hero-foot div { letter-spacing: 0.08em; padding: 16px 20px; }
+  .hero-foot b { font-size: 26px; }
   .plan-row { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
   .plan-list, .plan-note { margin-left: 0; }
   .cta-cols { grid-template-columns: 1fr; gap: 40px; }
   .side-no { display: none; }
+
+  /* the crossing becomes a wrapped grid: no scroll-jacking, all six
+     levels visible at once (the controller skips [data-x] when narrow) */
+  .lvl-strip {
+    width: auto;
+    flex-wrap: wrap;
+    gap: 28px 36px;
+    padding-left: 0;
+    margin-top: 56px;
+  }
+  .lvl b {
+    font-size: 54px;
+    -webkit-text-stroke-width: 2px;
+  }
+  .lvl span { letter-spacing: 0.12em; }
+  .lvl-arrow { display: none; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 104px 18px 40px; }
+  .hud { left: 18px; right: 18px; padding: 0 10px; height: 54px; }
+  .hud .brand { gap: 8px; padding: 6px 10px; font-size: 12px; box-shadow: 3px 3px 0 var(--red); }
+  .hud .brand span { display: none; } /* drop the "English Class" accent — keeps the band on one line */
+  .hud .brand .dot { width: 10px; height: 10px; }
+  .hud .counter { font-size: 11px; padding: 4px 10px; white-space: nowrap; }
+  .rail { top: 54px; height: 4px; }
+  .mega { font-size: clamp(40px, 12.5vw, 56px); }
+  .section-hero .mega { font-size: clamp(38px, 11.5vw, 52px); }
+  .section-cta .mega { font-size: clamp(34px, 10.5vw, 48px); }
+  .section-cta .mega em { padding: 0 10px; box-shadow: 7px 7px 0 var(--red); }
+  .block { padding: 0 10px; box-shadow: 7px 7px 0 var(--ink); }
+  .lede { font-size: 16px; }
+  .hero-foot div { letter-spacing: 0.06em; padding: 14px 18px; }
+  .hero-foot b { font-size: 22px; }
+  .plan-row { padding: 16px 18px; }
+  .plan-row .price { font-size: 22px; }
+  .plan-row .freq { font-size: 17px; }
+  .statement { padding: 20px 22px; box-shadow: 6px 6px 0 var(--red); }
+  .metodo-item { grid-template-columns: 48px 1fr; gap: 14px; }
+  .cta-button { padding: 18px 28px; font-size: 16px; box-shadow: 5px 5px 0 var(--red); }
+  .lvl-strip { gap: 22px 24px; }
+  .lvl b { font-size: 44px; }
 }
