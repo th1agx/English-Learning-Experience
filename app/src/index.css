@@ -103,18 +103,18 @@ a { color: inherit; }
 
 .hud .brand {
   font-family: var(--display);
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--paper);
   color: var(--ink);
   border: var(--border);
-  padding: 8px 18px;
-  box-shadow: 5px 5px 0 var(--red);
+  padding: 6px 12px;
+  box-shadow: 3px 3px 0 var(--red);
 }
 .hud .brand .dot {
-  width: 12px; height: 12px;
+  width: 10px; height: 10px;
   background: var(--red);
   border: 2px solid var(--ink);
 }
@@ -543,10 +543,14 @@ a { color: inherit; }
 /* ---------- responsive ---------- */
 
 @media (max-width: 900px) {
-  .section { padding: 110px 28px 48px; }
-  .hud { left: 28px; right: 28px; gap: 12px; }
+  /* tall panels on small screens: extra headroom so the heading never
+     sits under the fixed HUD band while the panel passes the camera */
+  .section { padding: 150px 28px 56px; }
+  .hud { gap: 12px; }
   .hud .brand,
   .hud .counter { white-space: nowrap; }
+  /* long kickers stack instead of cramming against the "— 01" marker */
+  .mono-label { flex-direction: column; gap: 6px; align-items: flex-start; }
   .hero-stamp { display: none; }
   .metodo-cols { grid-template-columns: 1fr; gap: 24px; }
   .hero-foot { grid-template-columns: 1fr; }
@@ -576,8 +580,8 @@ a { color: inherit; }
 }
 
 @media (max-width: 480px) {
-  .section { padding: 104px 18px 40px; }
-  .hud { left: 18px; right: 18px; padding: 0 10px; height: 54px; }
+  .section { padding: 140px 18px 48px; }
+  .hud { padding: 0 14px; height: 54px; }
   .hud .brand { gap: 8px; padding: 6px 10px; font-size: 12px; box-shadow: 3px 3px 0 var(--red); }
   .hud .brand span { display: none; } /* drop the "English Class" accent — keeps the band on one line */
   .hud .brand .dot { width: 10px; height: 10px; }
