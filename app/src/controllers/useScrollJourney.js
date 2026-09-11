@@ -1,16 +1,22 @@
 /**
  * Controller layer — scroll choreographer (vertical pins + dynamic reveals).
- * Owns every GSAP side effect so views stay pure:
- *  - each section pins while the camera "holds", its layers parallax past it;
- *  - content reveals stagger in as a section approaches the viewport;
- *  - the levels strip translates horizontally *inside* its vertical pin;
- *  - chrome state: progress rail + section counter.
+ * Owns every GSAP side effect so views stay pure.
+ *
+ * Motion language (no plain fade-ins):
+ *  - wipe  : headings unmask sideways via clip-path (power4.inOut)
+ *  - slide : blocks enter skewed from the side, straightening out
+ *  - pop   : stamps/labels scale+rotate into place
+ *  - pin   : each section holds the camera while its layers parallax at
+ *            their own speeds; tagged strips cross horizontally mid-pin
+ *
+ * Performance: only transform/clip-path animate (GPU-friendly),
+ * anticipatePin avoids pin jumps, triggers refresh once fonts settle.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger } from '../lib/animationEngine.js';
 
-const PIN_TRAVEL = '+=140%'; // scroll distance each pinned section holds the camera
+const PIN_TRAVEL = '+=100%';
 
 export function useScrollJourney({ sectionCount }) {
   const rootRef = useRef(null);
@@ -30,39 +36,54 @@ export function useScrollJourney({ sectionCount }) {
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.section');
 
+      const reveal = (el, trigger) => {
+        const kind = el.dataset.reveal || 'slide';
+        const start = { trigger: trigger || el, start: 'top 78%' };
+
+        if (kind === 'wipe') {
+          gsap.fromTo(
+            el,
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0% 0 0)', duration: 1.1, ease: 'power4.inOut', scrollTrigger: start },
+          );
+        } else if (kind === 'pop') {
+          gsap.from(el, {
+            scale: 0.4,
+            rotation: el.dataset.revealRot ? parseFloat(el.dataset.revealRot) : -8,
+            duration: 0.8,
+            ease: 'back.out(2)',
+            scrollTrigger: start,
+          });
+        } else {
+          // slide: enters skewed from the left, straightens as it lands
+          gsap.from(el, {
+            x: -90,
+            skewY: 4,
+            opacity: 0.001,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: start,
+          });
+        }
+      };
+
       sections.forEach((section, i) => {
         const isFinale = section.classList.contains('section-cta');
-        if (isFinale) {
-          // finale: rises into place as the reader arrives, then rests
-          gsap.from(section.querySelectorAll('.reveal'), {
-            scrollTrigger: { trigger: section, start: 'top 75%' },
-            y: 80,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: 'power3.out',
-          });
-          return;
-        }
 
-        // dynamic entrance as the section approaches the camera
-        gsap.from(section.querySelectorAll('.reveal'), {
-          scrollTrigger: { trigger: section, start: 'top 65%' },
-          y: 70,
-          opacity: 0,
-          duration: 0.95,
-          stagger: 0.09,
-          ease: 'power3.out',
-        });
+        section.querySelectorAll('[data-reveal], .reveal').forEach((el) => reveal(el, section));
 
-        // pinned hold: layers drift through the camera at their own speeds
+        if (isFinale) return;
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             start: 'top top',
             end: PIN_TRAVEL,
             pin: true,
-            scrub: 0.6,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: 0.4,
+            invalidateOnRefresh: true,
             onToggle: (self) => self.isActive && updateCounter(i + 1),
           },
         });
@@ -72,19 +93,17 @@ export function useScrollJourney({ sectionCount }) {
           tl.fromTo(el, { y: depth }, { y: -depth, duration: 1, ease: 'none' }, 0);
         });
 
-        // horizontal moment: tagged strips cross the camera mid-pin
         const xEl = section.querySelector('[data-x]');
         if (xEl) {
           tl.fromTo(
             xEl,
             { x: 0 },
-            { x: () => -(xEl.scrollWidth - window.innerWidth + 72), duration: 1, ease: 'none' },
+            { x: () => -(xEl.scrollWidth - window.innerWidth + 96), duration: 1, ease: 'none' },
             0,
           );
         }
       });
 
-      // global journey progress for the top rail
       ScrollTrigger.create({
         trigger: document.documentElement,
         start: 0,
@@ -96,7 +115,8 @@ export function useScrollJourney({ sectionCount }) {
         },
       });
 
-      ScrollTrigger.refresh();
+      // triggers settle only after webfonts size the headings correctly
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
       setReady(true);
     }, rootRef);
 
