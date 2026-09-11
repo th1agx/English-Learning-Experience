@@ -25,7 +25,6 @@ function Journey() {
 
       <Hud
         brand={content.brand}
-        brandAccent={content.brandAccent}
         index={activeIndex}
         total={content.panels.length}
       />
