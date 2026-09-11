@@ -71,9 +71,9 @@ npm run build    # dist/ pronto para deploy (Netlify/Vercel/GitHub Pages)
 - [x] Sistema de câmera fixa (GSAP scrub + Lenis) com entradas Framer reversíveis
 - [x] Paleta validada: off-white/preto predominante, manteiga pontual, detalhes vermelho
 - [x] Cursor pixel-art custom + botão magnético
-- [ ] Responsividade mobile (pins e faixa horizontal precisam de tratamento em tela estreita)
-- [ ] SEO básico e meta tags OG
-- [ ] Deploy público + domínio próprio
+- [x] Responsividade mobile (faixa A1–C2 vira grid em tela estreita, sem cruzamento horizontal)
+- [x] SEO básico e meta tags OG (Open Graph, Twitter card, JSON-LD, canonical, og-image)
+- [ ] Deploy público + domínio próprio (workflow GitHub Pages pronto em `.github/workflows/deploy.yml` — ativar Pages em Settings → Pages → GitHub Actions; domínio próprio ainda pendente)
 - [ ] Depoimentos reais de alunos
 
 ## Decisões de conteúdo
