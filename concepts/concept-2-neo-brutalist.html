@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>CEFF EDUCATION — Inglês do jeito certo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2E9;
+    --ink:#111111;
+    --cobalt:#1F3FD8;
+    --butter:#F5C518;
+    --red:#E0442A;
+    --border:3px solid var(--ink);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--butter);}
+  .mono{font-family:'Space Mono',monospace;}
+  .black{font-family:'Archivo Black',sans-serif;}
+  a{color:inherit;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--ink);color:var(--paper);
+    font-family:'Space Mono',monospace;font-size:12px;
+    padding:10px 0;white-space:nowrap;overflow:hidden;
+  }
+  .marquee{display:inline-block;animation:scroll 22s linear infinite;}
+  .marquee span{margin-right:56px;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;background:var(--paper);
+    border-bottom:var(--border);
+    display:flex;align-items:stretch;
+  }
+  .brand{
+    font-family:'Archivo Black',sans-serif;font-size:20px;
+    padding:14px 28px;border-right:var(--border);
+    display:flex;align-items:center;gap:10px;line-height:1.05;
+  }
+  .brand small{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;}
+  .brand .dot{width:14px;height:14px;background:var(--red);border:var(--border);flex:none;}
+  nav{display:flex;flex:1;}
+  nav a{
+    font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;
+    text-decoration:none;padding:0 22px;display:flex;align-items:center;
+    border-right:var(--border);
+  }
+  nav a:hover{background:var(--butter);}
+  .header-cta{
+    background:var(--cobalt);color:var(--paper);
+    font-family:'Archivo Black',sans-serif;font-size:13px;text-transform:uppercase;
+    text-decoration:none;padding:0 28px;display:flex;align-items:center;
+  }
+  .header-cta:hover{background:var(--red);}
+
+  /* ---------- hero ---------- */
+  .hero{border-bottom:var(--border);position:relative;}
+  .hero-main{
+    display:grid;grid-template-columns:1.5fr 1fr;
+  }
+  .hero-title{
+    padding:64px 48px 56px;
+    border-right:var(--border);
+  }
+  .stamp{
+    position:absolute;top:34px;right:340px;z-index:5;
+    background:var(--butter);border:var(--border);
+    font-family:'Space Mono',monospace;font-weight:700;font-size:12px;
+    padding:6px 14px;transform:rotate(4deg);
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:88px;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;
+  }
+  h1 .hl{background:var(--butter);padding:0 12px;box-shadow:6px 6px 0 var(--ink);display:inline-block;transform:rotate(-1.2deg);}
+  h1 .outline{
+    color:transparent;-webkit-text-stroke:2.5px var(--ink);
+  }
+  .hero-sub{
+    margin-top:44px;max-width:52ch;font-size:18px;font-weight:500;
+    display:flex;gap:22px;align-items:flex-start;
+  }
+  .hero-sub .arrow{font-family:'Archivo Black';font-size:26px;color:var(--cobalt);line-height:1;}
+  .hero-side{display:flex;flex-direction:column;}
+  .hero-photo{flex:1;border-bottom:var(--border);position:relative;min-height:300px;}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.1) saturate(.85);}
+  .hero-photo .tag{
+    position:absolute;bottom:14px;left:14px;background:var(--paper);border:var(--border);
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .hero-stats{display:flex;}
+  .hero-stats div{
+    flex:1;padding:22px 18px;font-family:'Space Mono',monospace;
+  }
+  .hero-stats div + div{border-left:var(--border);}
+  .hero-stats b{font-family:'Archivo Black',sans-serif;font-size:30px;display:block;}
+  .hero-stats span{font-size:11px;text-transform:uppercase;}
+
+  /* ---------- ticker band ---------- */
+  .band{
+    background:var(--cobalt);color:var(--paper);border-bottom:var(--border);
+    font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase;
+    padding:14px 0;white-space:nowrap;overflow:hidden;
+  }
+  .band .marquee span{margin-right:40px;}
+  .band .star{color:var(--butter);}
+
+  /* ---------- teacher ---------- */
+  .teacher{border-bottom:var(--border);display:grid;grid-template-columns:420px 1fr;}
+  .t-photo{border-right:var(--border);position:relative;}
+  .t-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.15);}
+  .t-photo::after{
+    content:"SOU O KADU →";position:absolute;top:20px;right:-3px;
+    background:var(--red);color:var(--paper);border:var(--border);
+    font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+    padding:6px 12px;transform:rotate(3deg);
+  }
+  .t-copy{padding:72px 64px;}
+  .label{
+    font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);display:inline-block;padding:5px 14px;margin-bottom:28px;
+  }
+  h2{font-family:'Archivo Black',sans-serif;font-size:52px;line-height:1.02;text-transform:uppercase;letter-spacing:-.015em;margin-bottom:30px;}
+  h2 .mk{background:var(--red);color:var(--paper);padding:0 10px;}
+  .t-copy p{max-width:58ch;margin-bottom:20px;font-size:17px;}
+  .t-copy p b{background:var(--butter);padding:0 4px;}
+  .creds{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px;}
+  .creds span{
+    border:var(--border);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+    padding:8px 16px;background:#fff;box-shadow:4px 4px 0 var(--ink);
+  }
+  .creds span:nth-child(2n){transform:rotate(-1deg);}
+  .creds span:nth-child(2n+1){transform:rotate(1deg);}
+
+  /* ---------- method ---------- */
+  .method{border-bottom:var(--border);padding:80px 64px;background:var(--ink);color:var(--paper);}
+  .method .label{background:var(--butter);color:var(--ink);}
+  .method h2{color:var(--paper);}
+  .method h2 .mk{background:var(--butter);color:var(--ink);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid var(--paper);}
+  .step{padding:36px 28px;border-right:3px solid var(--paper);}
+  .step:last-child{border-right:none;}
+  .step:nth-child(1){background:var(--ink);}
+  .step:nth-child(2){background:var(--cobalt);}
+  .step:nth-child(3){background:var(--red);}
+  .step:nth-child(4){background:var(--ink);}
+  .step-no{
+    font-family:'Archivo Black',sans-serif;font-size:54px;line-height:1;
+    color:transparent;-webkit-text-stroke:2px var(--paper);margin-bottom:18px;
+  }
+  .step h3{font-family:'Archivo Black',sans-serif;font-size:23px;text-transform:uppercase;margin-bottom:14px;}
+  .step p{font-size:14px;opacity:.92;}
+
+  /* ---------- levels ---------- */
+  .audience{border-bottom:var(--border);}
+  .aud-head{
+    padding:64px;border-bottom:var(--border);
+    display:flex;justify-content:space-between;align-items:flex-end;gap:48px;
+  }
+  .aud-head p{max-width:46ch;font-weight:500;}
+  .aud-list{display:flex;flex-direction:column;}
+  .aud-row{
+    display:grid;grid-template-columns:90px 340px 1fr 190px;align-items:center;
+    border-bottom:var(--border);padding:0;
+  }
+  .aud-row:last-child{border-bottom:none;}
+  .aud-row > *{padding:24px 26px;border-right:var(--border);}
+  .aud-row > *:last-child{border-right:none;text-align:right;}
+  .aud-row:hover{background:var(--butter);}
+  .aud-row .no{font-family:'Archivo Black',sans-serif;font-size:34px;color:var(--cobalt);}
+  .aud-row h3{font-family:'Archivo Black',sans-serif;font-size:21px;text-transform:uppercase;}
+  .aud-row p{font-size:14px;}
+  .aud-row .for{
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);padding:6px 10px;display:inline-block;
+  }
+
+  /* ---------- plans ---------- */
+  .plans{
+    display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--border);
+  }
+  .plans > div{padding:64px;}
+  .plans > div:first-child{border-right:var(--border);background:var(--butter);}
+  .plan-item{border-bottom:2px solid var(--ink);padding:20px 0;display:flex;gap:24px;align-items:baseline;justify-content:space-between;}
+  .plan-item:last-child{border-bottom:none;}
+  .plan-item .name{font-family:'Archivo Black',sans-serif;font-size:17px;text-transform:uppercase;}
+  .plan-item .name span{display:block;font-family:'Space Mono',monospace;font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;}
+  .plan-item .val{font-family:'Archivo Black',sans-serif;font-size:22px;white-space:nowrap;}
+  .plan-item .val small{display:block;font-family:'Space Mono',monospace;font-size:10px;font-weight:400;text-transform:uppercase;}
+  .plans-note{margin-top:24px;font-family:'Space Mono',monospace;font-size:12px;}
+
+  /* ---------- quote ---------- */
+  .testi{border-bottom:var(--border);padding:96px 64px;background:#fff;position:relative;}
+  .testi .quote-mark{
+    font-family:'Archivo Black',sans-serif;font-size:140px;line-height:.6;color:var(--cobalt);
+    position:absolute;top:64px;left:64px;
+  }
+  .testi blockquote{
+    font-family:'Archivo Black',sans-serif;font-size:42px;line-height:1.15;text-transform:uppercase;
+    max-width:26ch;margin:0 auto 40px;text-align:center;letter-spacing:-.01em;
+  }
+  .testi blockquote .hl{background:var(--butter);padding:0 8px;}
+  .testi .who{
+    text-align:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;
+  }
+  .testi .who span{background:var(--ink);color:var(--paper);padding:5px 12px;margin:0 5px;}
+
+  /* ---------- CTA ---------- */
+  .cta{background:var(--red);color:var(--paper);border-bottom:var(--border);}
+  .cta-inner{padding:100px 64px;text-align:center;position:relative;}
+  .cta h2{
+    font-size:72px;color:var(--paper);max-width:22ch;margin:0 auto 18px;
+  }
+  .cta h2 .mk{background:var(--ink);}
+  .cta p{font-family:'Space Mono',monospace;font-size:15px;margin-bottom:44px;}
+  .btn{
+    display:inline-block;background:var(--butter);color:var(--ink);
+    font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase;text-decoration:none;
+    padding:22px 52px;border:var(--border);box-shadow:8px 8px 0 var(--ink);
+    transition:transform .1s, box-shadow .1s;
+  }
+  .btn:hover{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink);}
+  .cta .meta{
+    margin-top:40px;font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;
+  }
+  .cta .meta span{margin:0 14px;}
+
+  footer{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'Space Mono',monospace;font-size:12px;padding:18px 32px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="marquee">
+    <span>★ AULA EXPERIMENTAL GRÁTIS</span><span>★ ONLINE E PRESENCIAL</span><span>★ DO NÍVEL A1 AO C2</span><span>★ CONVERSAÇÃO COM NATIVOS</span><span>★ AULA EXPERIMENTAL GRÁTIS</span><span>★ ONLINE E PRESENCIAL</span><span>★ DO NÍVEL A1 AO C2</span><span>★ CONVERSAÇÃO COM NATIVOS</span>
+  </div>
+</div>
+
+<header>
+  <div class="brand"><span class="dot"></span><div>CEFF<small>EDUCATION ★ ENGLISH CLASS</small></div></div>
+  <nav>
+    <a href="#professor">Professor</a>
+    <a href="#metodo">Método</a>
+    <a href="#niveis">Níveis</a>
+    <a href="#planos">Planos</a>
+  </nav>
+  <a class="header-cta" href="#contato">Aula Grátis →</a>
+</header>
+
+<section class="hero">
+  <div class="stamp">DE A1 ATÉ C2!</div>
+  <div class="hero-main">
+    <div class="hero-title">
+      <h1>
+        Inglês<br>
+        do <span class="hl">jeito</span><br>
+        <span class="outline">certo.</span>
+      </h1>
+      <div class="hero-sub">
+        <span class="arrow">→</span>
+        <p>Aulas particulares do CEFF Education: teste de nivelamento, plano personalizado e conversação com falantes nativos. Online e presencial.</p>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Professor Kadu">
+        <span class="tag">PROFESSOR KADU — CEFF EDUCATION</span>
+      </div>
+      <div class="hero-stats">
+        <div><b>6</b><span>Níveis (A1–C2)</span></div>
+        <div><b>4</b><span>Habilidades</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="marquee">
+    <span>LISTENING <span class="star">★</span></span><span>SPEAKING <span class="star">★</span></span><span>READING <span class="star">★</span></span><span>WRITING <span class="star">★</span></span><span>NATIVOS <span class="star">★</span></span><span>EXCEL <span class="star">★</span></span><span>LISTENING <span class="star">★</span></span><span>SPEAKING <span class="star">★</span></span><span>READING <span class="star">★</span></span><span>WRITING <span class="star">★</span></span><span>NATIVOS <span class="star">★</span></span><span>EXCEL <span class="star">★</span></span>
+  </div>
+</div>
+
+<section class="teacher" id="professor">
+  <div class="t-photo">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=700&auto=format&fit=crop" alt="Professor Kadu">
+  </div>
+  <div class="t-copy">
+    <span class="label">01 / O Professor</span>
+    <h2>Aula particular.<br>Plano <span class="mk">seu.</span></h2>
+    <p>Nada de turma. No CEFF Education, cada aula é adaptada às <b>necessidades e interesses de cada aluno</b>, do iniciante absoluto ao nível proficiente.</p>
+    <p>Comece com um teste de nivelamento que mostra exatamente onde você está — e o conteúdo é montado a partir daí. Também tem aulas de Excel para o currículo.</p>
+    <div class="creds">
+      <span>INGLÊS A1–C2 ✔</span>
+      <span>ONLINE + PRESENCIAL</span>
+      <span>TESTE DE NIVELAMENTO</span>
+      <span>WHATSAPP (34) 99947-8541</span>
+    </div>
+  </div>
+</section>
+
+<section class="method" id="metodo">
+  <span class="label">02 / O Método</span>
+  <h2>Quatro etapas. <span class="mk">Zero enrolação.</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-no">01</div>
+      <h3>Nivela</h3>
+      <p>Teste inicial identifica seu nível e adapta todo o conteúdo às suas necessidades específicas.</p>
+    </div>
+    <div class="step">
+      <div class="step-no">02</div>
+      <h3>Pratica</h3>
+      <p>Listening, speaking, reading e writing em aulas interativas, com jogos e recursos multimídia.</p>
+    </div>
+    <div class="step">
+      <div class="step-no">03</div>
+      <h3>Conversa</h3>
+      <p>Conversação com falantes nativos: ambiente real de comunicação para ganhar fluência e confiança.</p>
+    </div>
+    <div class="step">
+      <div class="step-no">04</div>
+      <h3>Avança</h3>
+      <p>Feedback construtivo em toda aula, suporte por mensagem e materiais para praticar fora da aula.</p>
+    </div>
+  </div>
+</section>
+
+<section class="audience" id="niveis">
+  <div class="aud-head">
+    <div>
+      <span class="label">03 / Os Níveis</span>
+      <h2 style="margin-bottom:0;">Comece onde<br>você está.</h2>
+    </div>
+    <p>O teste de nivelamento garante que você começa no nível certo — sem pular etapas e sem repetir o que já sabe.</p>
+  </div>
+  <div class="aud-list">
+    <div class="aud-row">
+      <div class="no">A1</div>
+      <h3>Iniciante</h3>
+      <p>Primeiro contato com o idioma: vocabulário essencial e frases simples.</p>
+      <div><span class="for">Começo absoluto</span></div>
+    </div>
+    <div class="aud-row">
+      <div class="no">A2</div>
+      <h3>Básico</h3>
+      <p>Conversas do cotidiano e mais autonomia para se comunicar.</p>
+      <div><span class="for">Dia a dia</span></div>
+    </div>
+    <div class="aud-row">
+      <div class="no">B1</div>
+      <h3>Intermediário</h3>
+      <p>Fluência em situações familiares e opiniões próprias.</p>
+      <div><span class="for">Viagem · Trabalho</span></div>
+    </div>
+    <div class="aud-row">
+      <div class="no">B2</div>
+      <h3>Intermediário avançado</h3>
+      <p>Interação espontânea com nativos e leitura fluente.</p>
+      <div><span class="for">Carreira</span></div>
+    </div>
+    <div class="aud-row">
+      <div class="no">C1</div>
+      <h3>Avançado</h3>
+      <p>Uso flexível e eficaz em contextos acadêmicos e profissionais.</p>
+      <div><span class="for">Acadêmico</span></div>
+    </div>
+    <div class="aud-row">
+      <div class="no">C2</div>
+      <h3>Proficiente</h3>
+      <p>Precisão, nuances e comunicação natural em qualquer situação.</p>
+      <div><span class="for">Maestria</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="plans" id="planos">
+  <div>
+    <span class="label">04 / Planos</span>
+    <h2>Individual.<br>Uma <span class="mk" style="background:var(--ink);color:var(--paper);">aula</span> só sua.</h2>
+    <p style="font-weight:500;max-width:46ch;">Aulas de 1 hora, com desconto progressivo conforme a frequência semanal.</p>
+  </div>
+  <div>
+    <div class="plan-item">
+      <div class="name">1× por semana<span>4 aulas por mês</span></div>
+      <div class="val">R$ 200<small>R$ 50 /aula</small></div>
+    </div>
+    <div class="plan-item">
+      <div class="name">2× por semana<span>8 aulas por mês</span></div>
+      <div class="val">R$ 320<small>R$ 40 /aula</small></div>
+    </div>
+    <div class="plan-item">
+      <div class="name">3× por semana<span>12 aulas por mês</span></div>
+      <div class="val">R$ 400<small>R$ 33,33 /aula</small></div>
+    </div>
+    <div class="plan-item">
+      <div class="name">Dupla &amp; Grupo 3+<span>valores por aluno</span></div>
+      <div class="val">R$ 22,50+<small>ver tabela no contato</small></div>
+    </div>
+    <p class="plans-note">* Aula avulsa: R$ 60 · Dupla: R$ 160/240/300 · Grupo: R$ 115/190/270 (por aluno)</p>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="quote-mark">"</div>
+  <blockquote>Ambiente real de conversa com <span class="hl">nativos.</span> Fluência de verdade.</blockquote>
+  <div class="who"><span>Conversação</span><span>Falantes nativos</span><span>CEFF Education</span></div>
+</section>
+
+<section class="cta" id="contato">
+  <div class="cta-inner">
+    <span class="label" style="background:var(--paper);color:var(--ink);">05 / Comece</span>
+    <h2>Sua primeira aula é <span class="mk">grátis.</span></h2>
+    <p>Agende a aula experimental e dê o primeiro passo rumo à fluência.</p>
+    <a class="btn" href="https://wa.me/5534999478541">WHATSAPP (34) 99947-8541 →</a>
+    <div class="meta"><span>ONLINE</span>·<span>PRESENCIAL</span>·<span>INGLÊS E EXCEL</span></div>
+  </div>
+</section>
+
+<footer>
+  <span>CEFF EDUCATION — ENGLISH CLASS</span>
+  <span>© 2026 — AULAS PARTICULARES DE INGLÊS</span>
+</footer>
+
+</body>
+</html>
