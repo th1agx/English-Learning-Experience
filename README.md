@@ -4,7 +4,7 @@
 
 ## Status do projeto
 
-**Fase de validação visual.** Foram desenvolvidos **três conceitos visuais completos e independentes** para o mesmo conteúdo real (extraído do PDF oficial do professor). O objetivo desta fase é que o professor escolha uma direção estética; o conceito vencedor será refinado com fotos reais, deploy público e domínio próprio.
+**Conceito 2 escolhido e em desenvolvimento** (`app/`). O professor escolheu o neo-brutalista com a direção "menos exagero": paleta papel + preto + amarelo manteiga com detalhes em vermelho (sem azul), menos informação por tela e brutalismo dosado. O site foi reconstruído em **React 19 + Vite + GSAP ScrollTrigger + Framer Motion** com transições dinâmicas estilo awwwards: scroll vertical com seções pinadas na câmera, reveals escalonados, parallax multicamada (`data-depth`) e um momento horizontal (faixa A1→C2) atravessando dentro do pin de níveis. Os três mockups estáticos da fase de descoberta permanecem em `concepts/`.
 
 | Conceito | Arquivo | Estilo | Paleta |
 |---|---|---|---|
@@ -47,12 +47,39 @@ Todos os conceitos apresentam o mesmo conteúdo, extraído do PDF oficial de apr
 ```
 English-Learning-Experience/
 ├── README.md
-├── concepts/
-│   ├── concept-1-minimal-editorial.html   # Homepage completa, estilo minimal editorial
-│   ├── concept-2-neo-brutalist.html       # Homepage completa, estilo neo-brutalista
-│   └── concept-3-hybrid-editorial.html    # Homepage completa, estilo híbrido
-└── screenshots/                           # Capturas de tela para referência/apresentação
+├── concepts/                      # Mockups estáticos da fase de descoberta (HTML único)
+│   ├── concept-1-minimal-editorial.html
+│   ├── concept-2-neo-brutalist.html       # ← conceito vencedor
+│   └── concept-3-hybrid-editorial.html
+├── screenshots/                   # Capturas de tela para referência/apresentação
+└── app/                           # Site final — React + Vite + GSAP + Framer Motion
+    └── src/
+        ├── model/                 # M: entidades de domínio + conteúdo (fonte única de verdade)
+        │   ├── Panel.js           #    contrato/fábrica de painéis
+        │   └── siteContent.js     #    todo o copy do site
+        ├── data/                  #    camada de dados (interface + implementação in-memory)
+        ├── controllers/           # C: SiteProvider (DI) + useScrollJourney (coreografia GSAP)
+        ├── views/                 # V: componentes puramente presentacionais
+        │   ├── Sections.jsx       #    fluxo vertical renderizado do model
+        │   ├── panelRegistry.js   #    registry de painéis (Open/Closed)
+        │   ├── panels/            #    Hero, Method, Levels, Plans, CTA
+        │   └── chrome/            #    HUD (brand + contador de seção)
+        └── lib/                   #    adapter do GSAP — único ponto de import (DIP)
 ```
+
+### Arquitetura do app (MVC + SOLID)
+
+- **Model** (`src/model`): entidades puras (`Panel`, `SiteContent`). Zero dependência de React/GSAP/DOM.
+- **View** (`src/views`): componentes que só recebem props e renderizam. Não conhecem scroll, GSAP nem origem dos dados. Seções são data-driven via `panelRegistry` — adicionar um novo tipo de seção não altera o `Sections` (Open/Closed).
+- **Controller** (`src/controllers`): `SiteProvider` é o container de injeção de dependência que carrega o model via repositório e o expõe por contexto (Dependency Inversion — um CMS entra depois trocando só a implementação do repositório). `useScrollJourney` concentra os efeitos: pins por seção, reveals, parallax, momento horizontal e chrome (rail + contador).
+- **Infra** (`src/lib/animationEngine.js`): adapter único do GSAP — nenhum outro arquivo importa a engine diretamente; trocar de engine reescreve só este módulo.
+
+### Coreografia de scroll (o "site vivo")
+
+1. **Entrada dinâmica**: cada seção revela seu conteúdo em cascata (`y + opacity + stagger`) ao aproximar-se da viewport.
+2. **Pin com parallax**: ao chegar ao topo, a seção fica presa (`pin`) por `+=140%` de scroll enquanto suas camadas marcadas com `data-depth` derivam verticalmente em velocidades próprias — a câmera parada assistindo o cenário passar.
+3. **Momento horizontal**: a faixa de níveis A1→C2 (`data-x`) atravessa a tela horizontalmente dentro do pin da sua seção — o eixo horizontal como evento, não como estrutura.
+4. **Finale**: a seção CTA (fundo vermelho, destaque manteiga) encerra a jornada com reveal próprio e botão WhatsApp.
 
 ### Anatomia de cada homepage
 
@@ -126,8 +153,9 @@ python -m http.server 8080 --directory concepts
 - [x] Conceito 2 — Neo-brutalista (desktop)
 - [x] Conceito 3 — Editorial Híbrido (desktop, paleta validada: musgo + areia)
 - [x] Remoção de todas as fotos (decisão do professor) — composições tipográficas no lugar
-- [ ] Escolha do conceito vencedor pelo professor
-- [ ] Refinamento do vencedor: responsividade mobile, SEO básico, meta tags OG
+- [x] Escolha do conceito vencedor: Conceito 2 (neo-brutalista dosado, sem azul)
+- [x] Rebuild em React + Vite + GSAP/Framer Motion com arquitetura MVC + SOLID
+- [ ] Refinamento: responsividade mobile, SEO básico, meta tags OG
 - [ ] Deploy (Netlify/Vercel/GitHub Pages) + domínio próprio
 - [ ] Depoimentos reais de alunos (nesta fase, a seção de prova social usa o compromisso do método, sem depoimentos fictícios)
 
