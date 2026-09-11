@@ -24,7 +24,6 @@ export function LevelsPanel({ active, id, kicker, title, levels }) {
           </div>
         </div>
 
-        <span className="side-no" data-depth="100">03</span>
       </div>
 
       <div className="lvl-strip" data-x>

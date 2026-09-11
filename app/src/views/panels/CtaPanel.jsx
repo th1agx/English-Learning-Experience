@@ -60,7 +60,6 @@ export function CtaPanel({ active, kicker, titleTop, titleHighlight, titleBottom
           </ul>
         </div>
 
-        <span className="side-no" data-depth="100">05</span>
       </div>
     </motion.section>
   );

@@ -51,7 +51,6 @@ export function PlansPanel({ active, id, kicker, title, rows, note }) {
         </motion.div>
         <motion.p className="plan-note" variants={rise}>{note}</motion.p>
 
-        <span className="side-no" data-depth="90">04</span>
       </div>
     </motion.section>
   );

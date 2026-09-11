@@ -47,7 +47,6 @@ export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp, band
           ))}
         </motion.div>
 
-        <span className="side-no" data-depth="90">01</span>
       </div>
 
       {/* marquee band pinned to the section's bottom edge */}

@@ -65,7 +65,6 @@ export function MethodPanel({ active, id, kicker, title, steps, statement, chips
           ))}
         </motion.div>
 
-        <span className="side-no" data-depth="90">02</span>
       </div>
     </motion.section>
   );
