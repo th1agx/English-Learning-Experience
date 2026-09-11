@@ -38,6 +38,8 @@ export function CtaPanel({ active, kicker, titleTop, titleHighlight, titleBottom
               <motion.a
                 className="cta-button"
                 variants={pop}
+                initial="hidden"
+                animate={active ? 'show' : 'hidden'}
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"

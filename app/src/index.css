@@ -207,12 +207,49 @@ a { color: inherit; }
   z-index: 2;
 }
 
+/* ---------- section 1 : hero ---------- */
+
+.section-hero { padding-bottom: 150px; } /* clears the ticker band */
+
+/* marquee band pinned to the hero's bottom edge */
+.ticker {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  padding: 14px 0;
+}
+.ticker-track {
+  display: flex;
+  gap: 44px;
+  width: max-content;
+  animation: ticker-run 26s linear infinite;
+}
+.ticker-track span {
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker-track .star {
+  font-style: normal;
+  color: var(--butter);
+  margin-left: 44px;
+}
+@keyframes ticker-run {
+  to { transform: translateX(-50%); }
+}
+
 .hero-foot {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 220px));
-  gap: 0 48px;
+  gap: 0;
   margin-top: 96px;
-  border-top: 1px solid var(--rule);
+  border: var(--border);
+  background: var(--paper);
+  box-shadow: 10px 10px 0 var(--ink);
 }
 .hero-foot div {
   font-family: var(--mono);
@@ -220,7 +257,7 @@ a { color: inherit; }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--grey);
-  padding: 24px 24px 0 0;
+  padding: 22px 24px;
 }
 .hero-foot div + div { border-left: 1px solid var(--rule); padding-left: 24px; }
 .hero-foot b {
@@ -234,6 +271,52 @@ a { color: inherit; }
 .hero-foot b em { font-style: normal; color: var(--red); }
 
 /* ---------- section 2 : metodo ---------- */
+
+/* statement panel: the "1 aluno. 1 plano." ink block */
+.statement {
+  border: var(--border);
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 12px 12px 0 var(--red);
+  padding: 34px 38px;
+}
+.statement b {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1;
+  color: var(--butter);
+  text-transform: uppercase;
+}
+.statement span {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(247, 245, 239, 0.6);
+}
+
+/* credential chips, lightly rotated */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+}
+.chip {
+  border: var(--border);
+  background: var(--paper);
+  box-shadow: 5px 5px 0 var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+}
 
 .metodo-cols {
   display: grid;

@@ -3,10 +3,11 @@
 import { motion } from 'framer-motion';
 import { panel, lineUp, slideL, pop, rise } from '../motion.js';
 
-export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp }) {
+export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp, band }) {
+  const bandItems = [...band, ...band]; // duplicated for the seamless loop
   return (
     <motion.section
-      className="section"
+      className="section section-hero"
       variants={panel}
       initial="hidden"
       animate={active ? 'show' : 'hidden'}
@@ -47,6 +48,17 @@ export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp }) {
         </motion.div>
 
         <span className="side-no" data-depth="90">01</span>
+      </div>
+
+      {/* marquee band pinned to the section's bottom edge */}
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          {bandItems.map((item, i) => (
+            <span key={i}>
+              {item} <i className="star">★</i>
+            </span>
+          ))}
+        </div>
       </div>
     </motion.section>
   );

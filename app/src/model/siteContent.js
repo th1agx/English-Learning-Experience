@@ -29,6 +29,7 @@ export const SITE_CONTENT = {
           { value: 'A1–C2', label: 'todos os níveis' },
           { value: '4', label: 'habilidades' },
         ],
+        band: ['Inglês', 'Listening', 'Speaking', 'Reading', 'Writing', 'Nativos', 'A1—C2', 'Online', 'Presencial', 'Excel'],
       },
     }),
 
@@ -38,6 +39,8 @@ export const SITE_CONTENT = {
       props: {
         kicker: 'O método',
         title: 'Quatro etapas. Zero enrolação.',
+        statement: { big: '1 aluno. 1 plano.', small: 'cada aula é adaptada às suas necessidades' },
+        chips: ['Teste de nivelamento', 'Conversação com nativos', 'Online + presencial', 'Suporte contínuo'],
         steps: [
           { n: '01', title: 'Nivela', text: 'Teste inicial identifica seu nível e adapta todo o conteúdo às suas necessidades.' },
           { n: '02', title: 'Pratica', text: 'Listening, speaking, reading e writing em aulas interativas e dinâmicas.' },
