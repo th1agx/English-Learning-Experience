@@ -4,4 +4,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/English-Learning-Experience/', // GitHub Pages serves from a subpath
 })
