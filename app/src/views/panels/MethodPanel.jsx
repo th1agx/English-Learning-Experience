@@ -1,40 +1,48 @@
-/** View layer — Method section: title pinned left, steps offset right. */
+/** View layer — Method panel: title masked left, steps spring from the left. */
 
-export function MethodPanel({ id, kicker, title, steps }) {
+import { motion } from 'framer-motion';
+import { panel, lineUp, slideL, slideR, rise } from '../motion.js';
+
+export function MethodPanel({ active, id, kicker, title, steps }) {
   return (
-    <section className="section">
+    <motion.section
+      className="section"
+      variants={panel}
+      initial="hidden"
+      animate={active ? 'show' : 'hidden'}
+    >
       <div className="frame">
-        <div className="mono-label" data-reveal="slide">
+        <motion.div className="mono-label" variants={slideL}>
           <span>{kicker}</span>
           <span className="n">— {id}</span>
-        </div>
+        </motion.div>
 
         <div className="metodo-cols">
-          <div>
-            <div className="mask">
-              <h2 className="mega" data-depth="50" style={{ fontSize: 'clamp(44px, 5.5vw, 84px)' }}>
+          <div data-depth="50">
+            <div className="line-mask">
+              <motion.h2 className="mega" variants={lineUp} style={{ fontSize: 'clamp(44px, 5.5vw, 84px)' }}>
                 {title}
-              </h2>
+              </motion.h2>
             </div>
-            <p className="lede" data-reveal="slide" style={{ marginTop: 40 }}>
+            <motion.p className="lede" variants={rise} style={{ marginTop: 40 }}>
               O conteúdo das aulas nasce do teste de nivelamento — cada etapa acontece no seu ritmo.
-            </p>
+            </motion.p>
           </div>
-          <div data-stagger="left">
+          <div>
             {steps.map((s) => (
-              <div className="metodo-item" key={s.n}>
+              <motion.div className="metodo-item" key={s.n} variants={slideR}>
                 <span className="n">{s.n}</span>
                 <div>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
         <span className="side-no" data-depth="90">02</span>
       </div>
-    </section>
+    </motion.section>
   );
 }

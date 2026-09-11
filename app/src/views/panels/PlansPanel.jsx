@@ -1,34 +1,54 @@
-/** View layer — Plans section: title left, table indented right (asymmetry). */
+/** View layer — Plans panel: title masked left, rows sweep in from the right. */
 
-export function PlansPanel({ id, kicker, title, rows, note }) {
+import { motion } from 'framer-motion';
+import { panel, lineUp, slideL, slideR, rise } from '../motion.js';
+
+export function PlansPanel({ active, id, kicker, title, rows, note }) {
   return (
-    <section className="section section-planos">
+    <motion.section
+      className="section section-planos"
+      variants={panel}
+      initial="hidden"
+      animate={active ? 'show' : 'hidden'}
+    >
       <div className="frame">
-        <div className="mono-label" data-reveal="slide">
+        <motion.div className="mono-label" variants={slideL}>
           <span>{kicker}</span>
           <span className="n">— {id}</span>
+        </motion.div>
+
+        <div data-depth="50">
+          <div className="line-mask">
+            <motion.h2 className="mega" variants={lineUp} style={{ maxWidth: '12ch' }}>
+              {title}
+            </motion.h2>
+          </div>
         </div>
 
-        <div className="mask">
-          <h2 className="mega" data-depth="50" style={{ maxWidth: '12ch' }}>
-            {title}
-          </h2>
-        </div>
-
-        <div className="plan-list" data-depth="26">
+        <motion.div className="plan-list" variants={panel} data-depth="26">
           {rows.map((row) => (
-            <div className="plan-row" key={row.freq}>
+            <motion.div
+              className="plan-row"
+              key={row.freq}
+              variants={{
+                hidden: { x: 140, rotate: 1.5, opacity: 0 },
+                show: {
+                  x: 0, rotate: 0, opacity: 1,
+                  transition: { type: 'spring', stiffness: 120, damping: 17 },
+                },
+              }}
+            >
               <span className="freq">{row.freq}</span>
               <span className="desc">{row.desc}</span>
               <span className="unit">{row.unit}</span>
               <span className="price">{row.price}</span>
-            </div>
+            </motion.div>
           ))}
-        </div>
-        <p className="plan-note" data-reveal="slide">{note}</p>
+        </motion.div>
+        <motion.p className="plan-note" variants={rise}>{note}</motion.p>
 
         <span className="side-no" data-depth="90">04</span>
       </div>
-    </section>
+    </motion.section>
   );
 }

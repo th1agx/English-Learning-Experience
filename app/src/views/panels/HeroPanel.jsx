@@ -1,63 +1,53 @@
-/**
- * View layer — Hero section. Pure presentation.
- * Mount animation via Framer Motion; scroll choreography (wipe/slide/pop
- * reveals, parallax) is tagged with data-attributes owned by the controller.
- */
+/** View layer — Hero panel: framer entrances; parallax on wrappers (data-depth). */
 
 import { motion } from 'framer-motion';
+import { panel, lineUp, slideL, pop, rise } from '../motion.js';
 
-const lineVariants = {
-  hidden: { y: 110 },
-  show: (i) => ({
-    y: 0,
-    transition: { delay: 0.1 + i * 0.12, duration: 0.85, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
-export function HeroPanel({ id, kicker, titleLines, lede, facts, stamp }) {
+export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp }) {
   return (
-    <section className="section">
+    <motion.section
+      className="section"
+      variants={panel}
+      initial="hidden"
+      animate={active ? 'show' : 'hidden'}
+    >
       <div className="frame">
-        <span className="hero-stamp" data-reveal="pop" data-reveal-rot="6">{stamp}</span>
+        <motion.span className="hero-stamp" variants={pop}>{stamp}</motion.span>
 
-        <div className="mono-label" data-reveal="slide">
+        <motion.div className="mono-label" variants={slideL} data-depth="26">
           <span>{kicker}</span>
-          <span className="n">— {id}</span>
-        </div>
+          <span className="n">— 01</span>
+        </motion.div>
 
-        <h1 className="mega" data-reveal="rise">
+        <h1 className="mega">
           {titleLines.map((line, i) => (
-            <span key={i}>
+            <div className="line-mask" key={i}>
               <motion.span
-                className={`${line.accent ? 'accent' : ''} ${line.block ? 'block' : ''} ${line.outline ? 'outline' : ''}`}
-                variants={lineVariants}
-                custom={i}
-                initial="hidden"
-                animate="show"
-                style={{ display: 'inline-block', overflow: 'hidden' }}
+                className={`mega ${line.accent ? 'accent' : ''} ${line.block ? 'block' : ''} ${line.outline ? 'outline' : ''}`}
+                variants={lineUp}
+                style={{ display: 'inline-block' }}
               >
                 {line.text}
               </motion.span>
-              <br />
-            </span>
+            </div>
           ))}
         </h1>
 
-        <p className="lede" data-reveal="slide" style={{ marginTop: 56 }}>
+        <motion.p className="lede" variants={rise} data-depth="48" style={{ marginTop: 56 }}>
           {lede}
-        </p>
+        </motion.p>
 
-        <div className="hero-foot" data-reveal="slide">
+        <motion.div className="hero-foot" variants={panel} data-depth="24">
           {facts.map((f) => (
-            <div key={f.label}>
+            <motion.div key={f.label} variants={slideL}>
               <b>{f.value}</b>
               {f.label}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <span className="side-no">01</span>
+        <span className="side-no" data-depth="90">01</span>
       </div>
-    </section>
+    </motion.section>
   );
 }

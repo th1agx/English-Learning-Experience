@@ -24,7 +24,7 @@ html { scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; }
 
 body {
-  background: var(--paper);
+  background: var(--ink);
   overflow-x: hidden;
 }
 
@@ -32,12 +32,27 @@ body {
 
 a { color: inherit; }
 
+/* ---------- the camera: fixed stage, the site passes through it ---------- */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.track {
+  will-change: transform;
+}
+
+/* scroll budget lives here (height set by the controller) */
+.scroll-space { position: relative; }
+
 /* thin progress rail on top */
 .rail {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 6px;
-  background: rgba(19, 19, 17, 0.1);
+  background: rgba(19, 19, 17, 0.12);
   border-bottom: 2px solid var(--ink);
   z-index: 40;
 }
@@ -88,7 +103,7 @@ a { color: inherit; }
   padding: 6px 14px;
 }
 
-/* ---------- sections: asymmetric, content-sized (nothing gets clipped) ---------- */
+/* ---------- sections inside the track ---------- */
 
 .section {
   min-height: 100vh;
@@ -151,18 +166,14 @@ a { color: inherit; }
   color: #3a3833;
 }
 
-[data-x] { will-change: transform; }
-[data-reveal] { will-change: transform; }
-[data-stagger] > * { will-change: transform; }
-
-/* masked heading reveals: the line rises from inside its own frame */
-.mask { overflow: hidden; }
-.mask > * { will-change: transform; }
-
-/* continuous scrub parallax targets */
+/* parallax + horizontal-crossing hooks (controller-owned, transform only) */
 [data-depth] { will-change: transform; }
+[data-x] { will-change: transform; }
 
-/* decorative crosses / side details */
+/* framer masked lines: the line rises from inside its own frame */
+.line-mask { overflow: hidden; display: block; }
+
+/* decorative outline numerals */
 .side-no {
   position: absolute;
   right: 0; bottom: -40px;
@@ -188,8 +199,9 @@ a { color: inherit; }
   color: var(--paper);
   border: var(--border);
   padding: 8px 16px;
-  transform: rotate(4deg);
+  rotate: 4deg;
   box-shadow: 5px 5px 0 var(--ink);
+  z-index: 2;
 }
 
 .hero-foot {
@@ -255,13 +267,12 @@ a { color: inherit; }
   max-width: 40ch;
 }
 
-/* ---------- section 3 : niveis (horizontal moment inside vertical pin) ---------- */
+/* ---------- section 3 : niveis (horizontal crossing) ---------- */
 
 .section-niveis {
   background: var(--ink);
   color: var(--paper);
-  overflow: hidden; /* only here: hosts the horizontally crossing strip */
-  height: 100vh;
+  overflow: hidden;
 }
 .section-niveis .mono-label { color: rgba(247, 245, 239, 0.5); border-color: rgba(247, 245, 239, 0.18); }
 .section-niveis .mono-label .n { color: var(--butter); }
@@ -272,7 +283,7 @@ a { color: inherit; }
   align-items: baseline;
   gap: 6vw;
   margin-top: 90px;
-  padding-left: 10vw;
+  padding-left: 8vw;
   width: max-content;
 }
 .lvl { display: flex; flex-direction: column; gap: 10px; }
@@ -413,7 +424,7 @@ a { color: inherit; }
 /* ---------- responsive ---------- */
 
 @media (max-width: 900px) {
-  .section { padding: 110px 28px 48px; height: auto; min-height: 100vh; }
+  .section { padding: 110px 28px 48px; }
   .hud { left: 28px; right: 28px; }
   .hero-stamp { display: none; }
   .metodo-cols { grid-template-columns: 1fr; gap: 24px; }
