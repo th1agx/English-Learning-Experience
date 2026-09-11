@@ -71,9 +71,21 @@
     border-left:2px solid var(--butter);padding-left:22px;
   }
   .hero-fig{position:relative;padding-bottom:0;}
-  .hero-fig img{
-    width:100%;display:block;filter:grayscale(1) contrast(1.08);
+  .hero-fig .lvl-panel{
     border:1px solid rgba(246,243,236,.25);
+    padding:36px 34px 28px;background:var(--green-deep);
+  }
+  .hero-fig .lvl-panel .lv{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:13px 0;border-bottom:1px solid rgba(246,243,236,.15);
+  }
+  .hero-fig .lvl-panel .lv:last-child{border-bottom:none;}
+  .hero-fig .lvl-panel .lv b{
+    font-family:'Instrument Serif',serif;font-weight:400;font-size:34px;line-height:1;color:var(--paper);
+  }
+  .hero-fig .lvl-panel .lv:last-child b{color:var(--butter);font-style:italic;}
+  .hero-fig .lvl-panel .lv span{
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);
   }
   .hero-fig .plate{
     background:var(--butter);color:var(--ink);
@@ -249,7 +261,14 @@
     </div>
     <div class="hero-fig">
       <div class="num">01</div>
-      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Professor Kadu">
+      <div class="lvl-panel">
+        <div class="lv"><b>A1</b><span>Iniciante</span></div>
+        <div class="lv"><b>A2</b><span>Básico</span></div>
+        <div class="lv"><b>B1</b><span>Intermediário</span></div>
+        <div class="lv"><b>B2</b><span>Interm. avançado</span></div>
+        <div class="lv"><b>C1</b><span>Avançado</span></div>
+        <div class="lv"><b>C2</b><span>Proficiente</span></div>
+      </div>
       <div class="plate">
         <b>A1—C2</b>
         <span>do iniciante ao proficiente</span>

@@ -95,8 +95,15 @@
   }
   .hero-sub .arrow{font-family:'Archivo Black';font-size:26px;color:var(--cobalt);line-height:1;}
   .hero-side{display:flex;flex-direction:column;}
-  .hero-photo{flex:1;border-bottom:var(--border);position:relative;min-height:300px;}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.1) saturate(.85);}
+  .hero-photo{
+    flex:1;border-bottom:var(--border);position:relative;min-height:300px;
+    background:var(--butter);display:flex;align-items:center;justify-content:center;
+  }
+  .hero-photo .big{
+    font-family:'Archivo Black',sans-serif;font-size:110px;line-height:.92;text-transform:uppercase;
+    text-align:center;letter-spacing:-.02em;transform:rotate(-2deg);
+  }
+  .hero-photo .big .out{color:transparent;-webkit-text-stroke:3px var(--ink);display:block;}
   .hero-photo .tag{
     position:absolute;bottom:14px;left:14px;background:var(--paper);border:var(--border);
     font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 12px;
@@ -121,10 +128,18 @@
 
   /* ---------- teacher ---------- */
   .teacher{border-bottom:var(--border);display:grid;grid-template-columns:420px 1fr;}
-  .t-photo{border-right:var(--border);position:relative;}
-  .t-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.15);}
+  .t-photo{
+    border-right:var(--border);position:relative;
+    background:var(--cobalt);display:flex;align-items:center;justify-content:center;
+    padding:60px 40px;
+  }
+  .t-photo .big{
+    font-family:'Archivo Black',sans-serif;font-size:84px;line-height:.95;color:var(--paper);
+    text-transform:uppercase;text-align:center;letter-spacing:-.02em;
+  }
+  .t-photo .big span{color:var(--butter);}
   .t-photo::after{
-    content:"SOU O KADU →";position:absolute;top:20px;right:-3px;
+    content:"AULA PARTICULAR!";position:absolute;top:20px;right:-3px;
     background:var(--red);color:var(--paper);border:var(--border);
     font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
     padding:6px 12px;transform:rotate(3deg);
@@ -280,8 +295,8 @@
     </div>
     <div class="hero-side">
       <div class="hero-photo">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Professor Kadu">
-        <span class="tag">PROFESSOR KADU — CEFF EDUCATION</span>
+        <div class="big">A1<span class="out">→C2</span></div>
+        <span class="tag">CEFF EDUCATION — ENGLISH CLASS</span>
       </div>
       <div class="hero-stats">
         <div><b>6</b><span>Níveis (A1–C2)</span></div>
@@ -299,7 +314,7 @@
 
 <section class="teacher" id="professor">
   <div class="t-photo">
-    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=700&auto=format&fit=crop" alt="Professor Kadu">
+    <div class="big">1 aluno.<br>1 <span>plano.</span></div>
   </div>
   <div class="t-copy">
     <span class="label">01 / O Professor</span>

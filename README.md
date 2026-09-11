@@ -34,6 +34,7 @@ Todos os conceitos apresentam o mesmo conteúdo, extraído do PDF oficial de apr
 ### Princípios
 
 - **Zero dependências de build**: cada conceito é um único arquivo HTML autocontido (inline CSS). Não há bundler, framework, pré-processador nem `package.json`.
+- **Zero imagens**: por decisão do professor, o site não usa fotos (nem dele mesmo). Toda a expressão visual vem de tipografia, cor e composição — monograma serifado (Conceito 1), bloco tipográfico "A1→C2" com contorno (Conceito 2) e painel de níveis CEFR (Conceito 3) ocupam o espaço das antigas fotos.
 - **Tipografia via Google Fonts** com `font-display: swap` implícito e fallbacks de sistema (`serif`/`sans-serif`):
   - Conceito 1: `Fraunces` (serif variável, opsz 9–144) + `Inter`
   - Conceito 2: `Archivo Black` + `Archivo` + `Space Mono`
@@ -105,7 +106,7 @@ Decisões de design explícitas (aplicadas nos três conceitos):
 
 ## Como visualizar
 
-**Opção A — abrir direto** (requer internet para fontes e fotos):
+**Opção A — abrir direto** (requer internet apenas para as fontes do Google Fonts):
 
 Baixe/clonе o repositório e abra qualquer arquivo de `concepts/` com dois cliques no navegador.
 
@@ -124,7 +125,7 @@ python -m http.server 8080 --directory concepts
 - [x] Conceito 1 — Minimalista Editorial (desktop)
 - [x] Conceito 2 — Neo-brutalista (desktop)
 - [x] Conceito 3 — Editorial Híbrido (desktop, paleta validada: musgo + areia)
-- [ ] Substituição das fotos placeholder pelas fotos reais do professor
+- [x] Remoção de todas as fotos (decisão do professor) — composições tipográficas no lugar
 - [ ] Escolha do conceito vencedor pelo professor
 - [ ] Refinamento do vencedor: responsividade mobile, SEO básico, meta tags OG
 - [ ] Deploy (Netlify/Vercel/GitHub Pages) + domínio próprio

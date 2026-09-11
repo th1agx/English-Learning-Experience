@@ -61,8 +61,18 @@
 
   /* ---------- teacher ---------- */
   .teacher{display:grid;grid-template-columns:440px 1fr;gap:96px;padding:120px 0;border-bottom:1px solid var(--rule);}
-  .portrait{position:relative;}
-  .portrait img{width:100%;display:block;filter:grayscale(100%) contrast(1.05);}
+  .portrait{
+    border:1px solid var(--ink);padding:56px 40px;position:relative;
+    display:flex;flex-direction:column;justify-content:space-between;min-height:520px;
+  }
+  .portrait .mono{
+    font-family:'Fraunces',serif;font-weight:300;font-size:120px;line-height:.9;letter-spacing:-.03em;
+  }
+  .portrait .mono em{font-style:italic;color:var(--red);}
+  .portrait .quote{
+    font-family:'Fraunces',serif;font-weight:300;font-size:24px;line-height:1.4;color:#3d3b35;
+    border-top:1px solid var(--rule);padding-top:24px;margin-top:40px;
+  }
   .caption{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:12px;display:flex;justify-content:space-between;}
   .section-no{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--red);margin-bottom:18px;display:block;}
   h2{font-family:'Fraunces',serif;font-weight:400;font-size:52px;line-height:1.08;letter-spacing:-.02em;margin-bottom:36px;}
@@ -171,8 +181,11 @@
 
 <section class="teacher wrap" id="professor">
   <div class="portrait">
-    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="Retrato do professor">
-    <div class="caption"><span>Professor Kadu</span><span>CEFF Education</span></div>
+    <div class="mono">Ce<em>f</em>f.</div>
+    <div>
+      <div class="quote">"Cada aula é adaptada às necessidades e aos interesses do aluno."</div>
+      <div class="caption"><span>CEFF Education</span><span>English Class</span></div>
+    </div>
   </div>
   <div class="teacher-copy">
     <span class="section-no">Nº 01 — O Professor</span>
