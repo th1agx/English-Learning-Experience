@@ -1,5 +1,5 @@
 :root {
-  --paper: #F2EFE6;
+  --paper: #F7F5EF;
   --ink: #131311;
   --butter: #F5C518;
   --red: #E0442A;
@@ -136,6 +136,7 @@ a { color: inherit; }
 
 .block {
   background: var(--butter);
+  color: var(--ink);
   padding: 0 18px;
   box-shadow: 10px 10px 0 var(--ink);
   display: inline-block;
@@ -244,7 +245,7 @@ a { color: inherit; }
   color: var(--paper);
   overflow: hidden;
 }
-.section-niveis .mono-label { color: rgba(242, 239, 230, 0.5); border-color: rgba(242, 239, 230, 0.18); }
+.section-niveis .mono-label { color: rgba(245, 197, 24, 0.5); border-color: rgba(245, 197, 24, 0.18); }
 .section-niveis .mono-label .n { color: var(--butter); }
 
 .lvl-strip {
@@ -275,7 +276,7 @@ a { color: inherit; }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(242, 239, 230, 0.55);
+  color: rgba(245, 197, 24, 0.55);
 }
 .lvl-arrow {
   font-family: var(--display);
@@ -286,7 +287,7 @@ a { color: inherit; }
 
 /* ---------- section 4 : planos ---------- */
 
-.section-planos { background: var(--butter); }
+.section-planos { background: var(--paper); }
 
 .plan-list {
   max-width: 1000px;
@@ -308,6 +309,7 @@ a { color: inherit; }
   font-family: var(--display);
   font-size: 21px;
   text-transform: uppercase;
+  color: var(--ink);
 }
 .plan-row .desc { font-size: 14px; color: #3a3833; }
 .plan-row .unit {
@@ -335,23 +337,23 @@ a { color: inherit; }
 /* ---------- section 5 : cta ---------- */
 
 .section-cta {
-  background: var(--red);
+  background: var(--ink);
   color: var(--paper);
   min-height: 100vh;
 }
 
-.section-cta .mono-label { color: rgba(242, 239, 230, 0.6); border-color: rgba(242, 239, 230, 0.25); }
+.section-cta .mono-label { color: rgba(245, 197, 24, 0.6); border-color: rgba(245, 197, 24, 0.25); }
 
 .section-cta .mega em {
   font-style: normal;
   color: var(--ink);
   background: var(--butter);
   padding: 0 18px;
-  box-shadow: 10px 10px 0 var(--ink);
+  box-shadow: 10px 10px 0 var(--red);
   display: inline-block;
 }
 
-.section-cta .lede { color: rgba(242, 239, 230, 0.9); margin-top: 44px; }
+.section-cta .lede { color: rgba(245, 197, 24, 0.85); margin-top: 44px; }
 
 .cta-button {
   display: inline-block;
@@ -380,7 +382,7 @@ a { color: inherit; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(242, 239, 230, 0.65);
+  color: rgba(245, 197, 24, 0.6);
 }
 
 /* ---------- responsive ---------- */
