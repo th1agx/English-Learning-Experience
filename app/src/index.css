@@ -1,5 +1,5 @@
 :root {
-  --paper: #F7F5EF;
+  --paper: #F5EFE2;
   --ink: #131311;
   --butter: #F5C518;
   --red: #E0442A;
@@ -313,7 +313,7 @@ a { color: inherit; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247, 245, 239, 0.6);
+  color: rgba(245, 239, 226, 0.6);
 }
 
 /* credential chips, lightly rotated */
@@ -377,7 +377,7 @@ a { color: inherit; }
   color: var(--paper);
   overflow: hidden;
 }
-.section-niveis .mono-label { color: rgba(247, 245, 239, 0.5); border-color: rgba(247, 245, 239, 0.18); }
+.section-niveis .mono-label { color: rgba(245, 239, 226, 0.5); border-color: rgba(245, 239, 226, 0.18); }
 .section-niveis .mono-label .n { color: var(--butter); }
 
 .lvl-strip {
@@ -408,7 +408,7 @@ a { color: inherit; }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247, 245, 239, 0.55);
+  color: rgba(245, 239, 226, 0.55);
 }
 .lvl-arrow {
   font-family: var(--display);
@@ -469,7 +469,7 @@ a { color: inherit; }
   color: var(--paper);
 }
 
-.section-cta .mono-label { color: rgba(247, 245, 239, 0.6); border-color: rgba(247, 245, 239, 0.25); }
+.section-cta .mono-label { color: rgba(245, 239, 226, 0.6); border-color: rgba(245, 239, 226, 0.25); }
 
 .section-cta .mega em {
   font-style: normal;
@@ -489,7 +489,7 @@ a { color: inherit; }
   align-items: end;
 }
 
-.section-cta .lede { color: rgba(247, 245, 239, 0.85); margin-top: 44px; }
+.section-cta .lede { color: rgba(245, 239, 226, 0.85); margin-top: 44px; }
 
 .cta-button {
   display: inline-block;
@@ -518,11 +518,11 @@ a { color: inherit; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247, 245, 239, 0.65);
+  color: rgba(245, 239, 226, 0.65);
   padding: 14px 0;
-  border-bottom: 1px solid rgba(247, 245, 239, 0.2);
+  border-bottom: 1px solid rgba(245, 239, 226, 0.2);
 }
-.cta-meta-list li:first-child { border-top: 1px solid rgba(247, 245, 239, 0.2); }
+.cta-meta-list li:first-child { border-top: 1px solid rgba(245, 239, 226, 0.2); }
 .cta-meta-list b { color: var(--butter); display: block; font-size: 15px; margin-bottom: 4px; }
 
 /* ---------- responsive ---------- */
