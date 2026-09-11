@@ -84,14 +84,18 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border);
+  padding: 8px 18px;
+  box-shadow: 5px 5px 0 var(--red);
 }
 .hud .brand .dot {
   width: 12px; height: 12px;
   background: var(--red);
-  border: 2px solid var(--paper);
+  border: 2px solid var(--ink);
 }
-.hud .brand span { color: var(--butter); }
+.hud .brand span { color: var(--red); }
 
 .hud .counter {
   font-family: var(--mono);
@@ -169,7 +173,8 @@ a { color: inherit; }
 [data-x] { will-change: transform; }
 
 /* framer masked lines: the line rises from inside its own frame */
-.line-mask { overflow: hidden; display: block; }
+.line-mask { overflow: hidden; display: block; padding-bottom: 6px; }
+.section-cta .line-mask + .line-mask { margin-top: 10px; }
 
 /* decorative outline numerals */
 .side-no {
@@ -188,7 +193,7 @@ a { color: inherit; }
 
 .hero-stamp {
   position: absolute;
-  top: -64px; right: 0;
+  top: -150px; right: 24px;
   font-family: var(--mono);
   font-size: 12px;
   font-weight: 700;

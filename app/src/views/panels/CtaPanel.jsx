@@ -1,7 +1,8 @@
-/** View layer — CTA finale: masked mega, elastic button, meta column stagger. */
+/** View layer — CTA finale: masked mega, magnetic button, meta column stagger. */
 
 import { motion } from 'framer-motion';
 import { panel, lineUp, slideL, slideR, pop, rise } from '../motion.js';
+import { Magnetic } from '../chrome/Magnetic.jsx';
 
 export function CtaPanel({ active, kicker, titleTop, titleHighlight, titleBottom, lede, whatsappUrl, whatsappLabel, meta }) {
   const metaItems = meta.split('·').map((m) => m.trim());
@@ -33,16 +34,19 @@ export function CtaPanel({ active, kicker, titleTop, titleHighlight, titleBottom
               </motion.h2>
             </div>
             <motion.p className="lede" variants={rise}>{lede}</motion.p>
-            <motion.a
-              className="cta-button"
-              variants={pop}
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ x: 4, y: 4 }}
-            >
-              {whatsappLabel}
-            </motion.a>
+            <Magnetic strength={0.4}>
+              <motion.a
+                className="cta-button"
+                variants={pop}
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ scale: 1.05, rotate: -1 }}
+                whileTap={{ scale: 0.94, rotate: 0 }}
+              >
+                {whatsappLabel}
+              </motion.a>
+            </Magnetic>
           </div>
 
           <ul className="cta-meta-list">
