@@ -30,13 +30,28 @@ export function useCameraJourney({ panelCount }) {
   const scrollSpaceRef = useRef(null);
   const trackRef = useRef(null);
   const railFillRef = useRef(null);
+  const smoothRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   // smooth scroll, independent lifecycle
   useEffect(() => {
     const smooth = createSmoothScroll();
-    return () => smooth.destroy();
+    smoothRef.current = smooth;
+    return () => {
+      smoothRef.current = null;
+      smooth.destroy();
+    };
   }, []);
+
+  // camera-native navigation: center a panel in the lens via Lenis itself
+  // (a raw window.scrollTo would fight the lerp and snap back)
+  const scrollToPanel = (index) => {
+    const panel = trackRef.current?.children[index];
+    if (!panel) return;
+    const target = Math.max(0, panel.offsetTop + panel.offsetHeight / 2 - window.innerHeight / 2);
+    if (smoothRef.current) smoothRef.current.scrollTo(target);
+    else window.scrollTo({ top: target });
+  };
 
   useGSAP(
     () => {
@@ -127,5 +142,5 @@ export function useCameraJourney({ panelCount }) {
     { scope: scrollSpaceRef },
   );
 
-  return { scrollSpaceRef, trackRef, railFillRef, activeIndex, panelCount };
+  return { scrollSpaceRef, trackRef, railFillRef, activeIndex, panelCount, scrollToPanel };
 }

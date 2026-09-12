@@ -23,6 +23,8 @@ export function createSmoothScroll() {
   gsap.ticker.lagSmoothing(0);
 
   return {
+    /** Animated scroll to a pixel offset, routed through Lenis itself. */
+    scrollTo: (target, options) => lenis.scrollTo(target, { duration: 1.2, ...options }),
     destroy: () => {
       gsap.ticker.remove(raf);
       lenis.destroy();

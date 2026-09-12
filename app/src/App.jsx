@@ -13,9 +13,19 @@ import { Cursor } from './views/chrome/Cursor.jsx';
 
 function Journey() {
   const { content } = useSiteContent();
-  const { scrollSpaceRef, trackRef, railFillRef, activeIndex } = useCameraJourney({
+  const { scrollSpaceRef, trackRef, railFillRef, activeIndex, scrollToPanel } = useCameraJourney({
     panelCount: content.panels.length,
   });
+
+  // short labels from the panel kickers, dropping leading articles:
+  // "O método" → "Método", "Dúvidas frequentes" → "Dúvidas"
+  const nav = content.panels
+    .map((p, index) => ({ index, kicker: p.props.kicker }))
+    .filter((item) => item.index > 0 && item.index < content.panels.length - 1)
+    .map((item) => ({
+      index: item.index,
+      label: item.kicker.replace(/^(o|a|os|as)\s+/i, '').split(' ')[0],
+    }));
 
   return (
     <>
@@ -25,8 +35,10 @@ function Journey() {
 
       <Hud
         brand={content.brand}
-        index={activeIndex}
+        nav={nav}
+        activeIndex={activeIndex}
         total={content.panels.length}
+        onNavigate={scrollToPanel}
       />
 
       <Cursor />
