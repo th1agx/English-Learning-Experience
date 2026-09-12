@@ -15,7 +15,6 @@ export function LevelsPanel({ active, id, kicker, title, levels }) {
       <div className="frame">
         <motion.div className="mono-label" variants={slideL}>
           <span>{kicker}</span>
-          <span className="n">— {id}</span>
         </motion.div>
 
         <div data-depth="60">

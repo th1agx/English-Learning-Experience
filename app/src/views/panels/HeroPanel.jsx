@@ -17,7 +17,6 @@ export function HeroPanel({ active, kicker, titleLines, lede, facts, stamp, band
 
         <motion.div className="mono-label" variants={slideL} data-depth="26">
           <span>{kicker}</span>
-          <span className="n">— 01</span>
         </motion.div>
 
         <h1 className="mega">

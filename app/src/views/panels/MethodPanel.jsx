@@ -14,7 +14,6 @@ export function MethodPanel({ active, id, kicker, title, steps, statement, chips
       <div className="frame">
         <motion.div className="mono-label" variants={slideL}>
           <span>{kicker}</span>
-          <span className="n">— {id}</span>
         </motion.div>
 
         <div className="metodo-cols">

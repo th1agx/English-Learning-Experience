@@ -160,7 +160,6 @@ a { color: inherit; }
   justify-content: space-between;
   margin-bottom: 36px;
 }
-.mono-label .n { color: var(--red); }
 
 .mega {
   font-family: var(--display);
@@ -378,7 +377,6 @@ a { color: inherit; }
   overflow: hidden;
 }
 .section-niveis .mono-label { color: rgba(245, 239, 226, 0.5); border-color: rgba(245, 239, 226, 0.18); }
-.section-niveis .mono-label .n { color: var(--butter); }
 
 .lvl-strip {
   display: flex;
@@ -534,8 +532,6 @@ a { color: inherit; }
   .hud { gap: 12px; }
   .hud .brand,
   .hud .counter { white-space: nowrap; }
-  /* long kickers stack instead of cramming against the "— 01" marker */
-  .mono-label { flex-direction: column; gap: 6px; align-items: flex-start; }
   .hero-stamp { display: none; }
   .metodo-cols { grid-template-columns: 1fr; gap: 24px; }
   .hero-foot { grid-template-columns: 1fr; }
