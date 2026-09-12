@@ -127,6 +127,34 @@ a { color: inherit; }
   background: var(--butter);
   color: var(--ink);
   padding: 5px 14px;
+  white-space: nowrap;
+}
+
+/* section nav between brand and counter */
+.hud-nav {
+  display: flex;
+  gap: 26px;
+  margin: 0 auto; /* centers between brand and counter */
+  padding: 0 20px;
+}
+.hud-nav button {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 226, 0.6);
+  background: none;
+  border: none;
+  padding: 6px 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.hud-nav button:hover { color: var(--butter); }
+.hud-nav button.is-active {
+  color: var(--paper);
+  border-bottom: 2px solid var(--red);
 }
 
 /* ---------- sections inside the track ---------- */
@@ -408,6 +436,14 @@ a { color: inherit; }
   text-transform: uppercase;
   color: rgba(245, 239, 226, 0.55);
 }
+.lvl .lvl-desc {
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 12px;
+  max-width: 22ch;
+  line-height: 1.5;
+  color: rgba(245, 239, 226, 0.45);
+}
 .lvl-arrow {
   font-family: var(--display);
   font-size: 30px;
@@ -460,7 +496,32 @@ a { color: inherit; }
   font-weight: 700;
 }
 
-/* ---------- section 5 : cta ---------- */
+/* ---------- section 5 : faq ---------- */
+
+.faq-list {
+  list-style: none;
+  max-width: 960px;
+  margin: 56px 0 0 auto; /* mirrors the plans panel asymmetry */
+  border: var(--border);
+  background: var(--paper);
+  box-shadow: 14px 14px 0 var(--ink);
+}
+.faq-item { padding: 22px 32px; }
+.faq-item + .faq-item { border-top: 2px solid var(--ink); }
+.faq-item h3 {
+  font-family: var(--display);
+  font-size: 17px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.faq-item p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #3a3833;
+  max-width: 62ch;
+}
+
+/* ---------- section 6 : cta ---------- */
 
 .section-cta {
   background: var(--ink);
@@ -582,4 +643,17 @@ a { color: inherit; }
   .cta-button { padding: 18px 28px; font-size: 16px; box-shadow: 5px 5px 0 var(--red); }
   .lvl-strip { gap: 22px 24px; }
   .lvl b { font-size: 44px; }
+}
+
+/* mobile: faq + levels descriptions breathe */
+@media (max-width: 900px) {
+  .faq-list { margin-left: 0; box-shadow: 8px 8px 0 var(--ink); }
+  .faq-item { padding: 16px 18px; }
+  .faq-item h3 { font-size: 14px; }
+  .faq-item p { font-size: 13px; }
+}
+
+/* nav hidden on narrow screens — the counter still tracks the journey */
+@media (max-width: 900px) {
+  .hud-nav { display: none; }
 }

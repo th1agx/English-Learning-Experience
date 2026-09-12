@@ -41,6 +41,7 @@ export function LevelsPanel({ active, id, kicker, title, levels }) {
             >
               <b>{lvl.code}</b>
               <span>{lvl.name}</span>
+              {lvl.desc && <span className="lvl-desc">{lvl.desc}</span>}
             </motion.div>
           </span>
         ))}

@@ -8,6 +8,7 @@ import { HeroPanel } from './panels/HeroPanel.jsx';
 import { MethodPanel } from './panels/MethodPanel.jsx';
 import { LevelsPanel } from './panels/LevelsPanel.jsx';
 import { PlansPanel } from './panels/PlansPanel.jsx';
+import { FaqPanel } from './panels/FaqPanel.jsx';
 import { CtaPanel } from './panels/CtaPanel.jsx';
 
 export const PANEL_REGISTRY = Object.freeze({
@@ -15,5 +16,6 @@ export const PANEL_REGISTRY = Object.freeze({
   method: MethodPanel,
   levels: LevelsPanel,
   plans: PlansPanel,
+  faq: FaqPanel,
   cta: CtaPanel,
 });
