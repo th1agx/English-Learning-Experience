@@ -591,6 +591,7 @@ a { color: inherit; }
      sits under the fixed HUD band while the panel passes the camera */
   .section { padding: 150px 28px 56px; }
   .hud { gap: 12px; }
+  .hud .counter { letter-spacing: 0.12em; }
   .hud .brand,
   .hud .counter { white-space: nowrap; }
   .hero-stamp { display: none; }
@@ -625,7 +626,7 @@ a { color: inherit; }
   .hud { padding: 0 14px; height: 54px; }
   .hud .brand { gap: 8px; padding: 6px 10px; font-size: 12px; box-shadow: 3px 3px 0 var(--red); }
   .hud .brand .dot { width: 10px; height: 10px; }
-  .hud .counter { font-size: 11px; padding: 4px 10px; white-space: nowrap; }
+  .hud .counter { font-size: 11px; padding: 4px 10px; white-space: nowrap; letter-spacing: 0.08em; }
   .rail { top: 54px; height: 4px; }
   .mega { font-size: clamp(40px, 12.5vw, 56px); }
   .section-hero .mega { font-size: clamp(38px, 11.5vw, 52px); }
